@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Breaking the Habit Homework</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Bricolage+Grotesque:wght@500;700;800&family=Charis+SIL:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: a homework desk — passage pinned beside the tasks on wide screens, a pull-up sheet on phones; one progress bar tracks the whole unit. */
+:root{
+  --paper:#F5F6F9; --card:#FFFFFF; --ink:#172031; --muted:#576175; --line:#DCE1EA;
+  --pen:#2448B5; --pen-soft:#E7EDFB;
+  --hl-key:#FFE45C; --hl-yes:#BCEFD2; --hl-no:#FFCABF; --hl-ng:#E1D9FF;
+  --yes:#157648; --no:#B2352A; --ng:#5843B4;
+  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --f-body:"Be Vietnam Pro","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-read:"Charis SIL",Georgia,"Times New Roman",serif;
+  --r:10px; --navh:62px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#10141C; --card:#171D29; --ink:#E7EBF3; --muted:#9AA4B7; --line:#2A3345;
+  --pen:#93AAFF; --pen-soft:#1F2945;
+  --hl-key:rgba(255,212,0,.36); --hl-yes:rgba(56,200,128,.30); --hl-no:rgba(255,104,84,.30); --hl-ng:rgba(150,120,255,.34);
+  --yes:#5CD597; --no:#FF8D7E; --ng:#B9A8FF; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --paper:#10141C; --card:#171D29; --ink:#E7EBF3; --muted:#9AA4B7; --line:#2A3345;
+  --pen:#93AAFF; --pen-soft:#1F2945;
+  --hl-key:rgba(255,212,0,.36); --hl-yes:rgba(56,200,128,.30); --hl-no:rgba(255,104,84,.30); --hl-ng:rgba(150,120,255,.34);
+  --yes:#5CD597; --no:#FF8D7E; --ng:#B9A8FF; color-scheme:dark;}
+
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+[hidden]{display:none!important}
+html{scroll-padding-top:calc(var(--navh) + 12px)}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--f-body);-webkit-font-smoothing:antialiased}
+body.lock{overflow:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--card)}
+img{max-width:100%}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:var(--pen)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible,.tok:focus-visible{outline:3px solid var(--pen);outline-offset:2px}
+
+/* Header */
+.top{padding-block:32px 22px}
+.eyebrow{font:600 12px/1.4 var(--f-body);letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.top h1{font-size:clamp(32px,5vw,54px);font-weight:800;letter-spacing:-.02em;margin-top:8px}
+.top h1 .u{background:linear-gradient(transparent 62%,var(--hl-key) 62%,var(--hl-key) 92%,transparent 92%);padding:0 .08em}
+.lede{max-width:66ch;color:var(--muted);margin-top:10px}
+.start{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px;margin-top:22px}
+@media (max-width:820px){.start{grid-template-columns:1fr}}
+.howto{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:15px}
+.howto b{color:var(--pen)}
+.name-row{display:flex;flex-direction:column;gap:6px}
+.name-row label{font-weight:600;font-size:14px}
+.legend-mini{display:flex;flex-wrap:wrap;gap:6px;font-size:13px}
+.legend-mini span{padding:2px 8px;border-radius:5px}
+
+/* Nav + progress */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:12px;padding-block:8px}
+.nav-links{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.nav-links a{flex:none;text-decoration:none;color:var(--muted);font-weight:600;font-size:14px;padding:7px 11px;border-radius:8px}
+.nav-links a:hover{background:var(--pen-soft);color:var(--pen)}
+.prog{flex:none;display:flex;align-items:center;gap:8px;font:700 13px var(--f-body);font-variant-numeric:tabular-nums;color:var(--muted)}
+.prog-track{width:110px;height:8px;border-radius:99px;background:var(--pen-soft);overflow:hidden}
+.prog-fill{height:100%;width:0;background:var(--pen);border-radius:99px;transition:width .4s}
+@media (max-width:560px){.prog-track{width:56px}}
+
+/* Sections */
+section.block{padding-block:44px 8px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px;margin-bottom:20px}
+.sec-head h2{font-size:clamp(26px,3.4vw,36px);font-weight:800;letter-spacing:-.01em;margin-top:4px}
+.pillar{display:inline-flex;align-items:center;gap:6px;font:600 12px var(--f-body);letter-spacing:.04em;color:var(--pen);background:var(--pen-soft);border-radius:999px;padding:4px 10px}
+.pillar svg{width:14px;height:14px}
+.task{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0}
+@media (max-width:520px){.task{padding:16px}}
+.task h3{font-size:20px;font-weight:700}
+.task h3 small{display:block;font:600 12px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.inst{color:var(--muted);font-size:15px;max-width:68ch}
+.inst b{color:var(--ink)}
+.stack{display:flex;flex-direction:column;gap:18px;min-width:0}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+@media (max-width:820px){.two{grid-template-columns:1fr}}
+
+/* Reading grid & passage */
+.read-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:24px;align-items:start}
+.passage{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--navh) + 12px);max-height:calc(100vh - var(--navh) - 28px);overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:var(--r);overscroll-behavior:contain}
+.p-bar{position:sticky;top:0;z-index:2;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:10px 14px;background:var(--card);border-bottom:1px solid var(--line)}
+.p-bar .lbl{font:600 12px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:auto}
+.p-close{display:none}
+.p-body{padding:22px 26px 28px;font:400 17px/1.7 var(--f-read)}
+@media (max-width:520px){.p-body{padding:18px 16px 24px;font-size:16.5px}}
+.p-body h3{font-family:var(--f-display);font-size:28px;font-weight:800;margin-bottom:6px}
+.p-body .sub{font-style:italic;color:var(--muted);margin-bottom:14px}
+.para{position:relative;margin-bottom:14px;padding-left:32px;border-radius:6px;transition:background .3s}
+.pnum{position:absolute;left:0;top:3px;width:24px;height:24px;display:grid;place-items:center;padding:0;font:700 12px var(--f-body);color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:50%}
+.pnum:hover{border-color:var(--pen);color:var(--pen)}
+.para.para-on{background:var(--pen-soft);box-shadow:0 0 0 6px var(--pen-soft)}
+.p-body strong{font-weight:700}
+.open-pass{display:none}
+@media (max-width:960px){
+  .read-grid{grid-template-columns:1fr}
+  .passage{position:fixed;inset:0;z-index:50;max-height:none;border:0;border-radius:0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);transform:translateY(100%);visibility:hidden;transition:transform .28s ease,visibility .28s}
+  .passage.open{transform:none;visibility:visible}
+  .p-bar{padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:max(14px,env(safe-area-inset-right,0px))}
+  .p-close{display:inline-block}
+  .open-pass{display:flex;position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--navh) + 8px);z-index:5;justify-content:center}
+  .open-pass .btn{box-shadow:0 4px 14px rgba(20,30,60,.18)}
+}
+.ev{border-radius:3px;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background .3s}
+.ev.on{background:var(--hl);padding:1px 2px}
+.ev.t-yes{--hl:var(--hl-yes)}.ev.t-no{--hl:var(--hl-no)}.ev.t-ng{--hl:var(--hl-ng)}
+.ev.on[data-label]::before{content:attr(data-label);font:700 11px/1 var(--f-body);background:var(--ink);color:var(--card);border-radius:4px;padding:3px 5px;margin-right:5px;vertical-align:2px;letter-spacing:.02em}
+.ev.flash{animation:flash 1.4s ease}
+@keyframes flash{0%,60%{box-shadow:0 0 0 3px var(--pen)}100%{box-shadow:0 0 0 0 transparent}}
+
+/* Buttons */
+.btn{border:0;background:var(--pen);color:var(--card);font-weight:600;font-size:15px;padding:10px 16px;border-radius:8px;text-decoration:none;display:inline-block;line-height:1.3}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:var(--pen-soft);color:var(--pen)}
+.btn.quiet{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.btn.danger{background:var(--no);color:var(--card)}
+.btn.sm{font-size:13px;padding:6px 10px}
+.btn:disabled{opacity:.42;cursor:default;filter:none}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.result{width:100%;font-weight:600;font-size:15px}
+.result:empty{display:none}
+.score{display:inline-block;background:var(--ink);color:var(--card);border-radius:6px;padding:1px 8px;margin-right:6px;font-variant-numeric:tabular-nums}
+.link{border:0;background:none;color:var(--pen);font-weight:600;padding:0;font-size:14px;text-align:left}
+.link:hover{text-decoration:underline}
+.say{display:inline-grid;place-items:center;flex:none;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--pen);padding:0;vertical-align:middle}
+.say:hover{background:var(--pen-soft)}
+.say svg{width:15px;height:15px}
+.no-tts .say,.no-tts [data-listen],.no-tts [data-stop],.no-tts [data-saytext]{display:none}
+
+/* Statements */
+.q{border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:12px;background:var(--card)}
+.q.right{border-color:var(--yes)}
+.q.wrong{border-color:var(--no)}
+.q-row{display:flex;gap:12px;align-items:flex-start}
+.q-num{flex:none;width:28px;height:28px;border-radius:7px;background:var(--pen-soft);color:var(--pen);display:grid;place-items:center;font-weight:700;font-size:14px;margin-top:2px}
+.stmt{font-size:17px;line-height:1.8}
+.tok{cursor:pointer;border-radius:3px;padding:0 1px;transition:background .15s}
+.tok:hover{background:var(--pen-soft)}
+.tok.ul{text-decoration:underline;text-decoration-color:var(--pen);text-decoration-thickness:3px;text-underline-offset:5px}
+.tok.key{background:var(--hl-key);cursor:default}
+.tok.extra{text-decoration-style:dashed;text-decoration-color:var(--muted)}
+.seg,.q-actions,.hint{margin-left:40px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.q-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.q-ul{font-size:13px;font-weight:600;color:var(--muted)}
+.opt{border:1.5px solid var(--line);background:var(--card);border-radius:8px;padding:7px 14px;font-weight:700;font-size:14px;letter-spacing:.02em}
+.opt:hover:not(:disabled){border-color:var(--pen)}
+.opt.sel{background:var(--pen);border-color:var(--pen);color:var(--card)}
+.opt.correct{background:var(--yes);border-color:var(--yes);color:var(--card)}
+.opt.incorrect{background:var(--no);border-color:var(--no);color:var(--card);text-decoration:line-through}
+.opt:disabled{cursor:default}
+.hint{font-size:14px;background:var(--hl-key);border-radius:8px;padding:7px 10px;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center}
+.hint .link{color:var(--ink);text-decoration:underline}
+@media (max-width:520px){.seg,.q-actions,.hint{margin-left:0}}
+
+/* Feedback */
+.fb{border-top:1px dashed var(--line);padding-top:12px;display:flex;flex-direction:column;gap:10px}
+.fb-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pill{font:700 12px var(--f-body);letter-spacing:.05em;padding:3px 9px;border-radius:6px;color:var(--ink)}
+.pill.t-yes{background:var(--hl-yes)}.pill.t-no{background:var(--hl-no)}.pill.t-ng{background:var(--hl-ng)}
+.verdict{font-weight:600;font-size:15px}
+.verdict.ok{color:var(--yes)}.verdict.no{color:var(--no)}
+.fb-label{font:600 12px var(--f-body);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.pairs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:4px 10px;align-items:center;font-size:15px;background:var(--paper);border-radius:8px;padding:8px 10px}
+.pair .pq{font-weight:600}
+.pair .pp{font-family:var(--f-read);font-style:italic}
+.pair .pq,.pair .pp{padding:0 3px;border-radius:3px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.pair.p-syn .pp,.pair.p-syn .pq,.pair.p-form .pp,.pair.p-form .pq{background:var(--hl-yes)}
+.pair.p-opp .pp,.pair.p-flip .pp{background:var(--hl-no)}
+.pair.p-ng .pq{background:var(--hl-ng)}
+.parrow{color:var(--muted);font-weight:700}
+.ptag{grid-column:1/-1;font:600 11px var(--f-body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:520px){.pair{grid-template-columns:1fr}.parrow{transform:rotate(90deg);justify-self:start}}
+.why{font-size:15px}
+.trap{font-size:14px;background:var(--hl-no);border-radius:8px;padding:8px 10px}
+.legend{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px;background:var(--paper);border-radius:8px;padding:10px 12px}
+.advice{background:var(--pen-soft);border-radius:var(--r);padding:16px 18px}
+.advice h4{margin:0 0 6px;font:700 15px var(--f-body);color:var(--pen)}
+.advice ul{margin:0;padding-left:18px;font-size:15px}
+
+/* MC, matching, inputs */
+.mc{display:flex;flex-direction:column;gap:8px}
+.mc button{text-align:left;border:1.5px solid var(--line);background:var(--card);border-radius:8px;padding:10px 12px;font-size:15px;display:flex;gap:10px}
+.mc button b{color:var(--pen);flex:none}
+.mc button:hover:not(:disabled){border-color:var(--pen)}
+.mc button.sel{border-color:var(--pen);background:var(--pen-soft)}
+.mc button.correct{border-color:var(--yes);background:var(--hl-yes)}
+.mc button.incorrect{border-color:var(--no);background:var(--hl-no)}
+.mc button:disabled{cursor:default;color:var(--ink)}
+.mc.row{flex-direction:row;flex-wrap:wrap}
+.mc.row button{width:auto}
+.match{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.match li{display:grid;grid-template-columns:28px minmax(0,1fr) minmax(140px,200px);gap:6px 10px;align-items:center;padding:8px 10px;border-radius:8px;background:var(--paper)}
+.match li.right{box-shadow:inset 3px 0 0 var(--yes)}
+.match li.wrong{box-shadow:inset 3px 0 0 var(--no)}
+.match .fix{grid-column:2/-1;font-size:13px;font-weight:600;color:var(--muted)}
+.match .fix b{color:var(--no)}
+@media (max-width:520px){.match li{grid-template-columns:28px minmax(0,1fr)}.match select,.match input{grid-column:1/-1}.match .fix{grid-column:1/-1}}
+select,input[type=text],textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:8px;padding:7px 10px;max-width:100%;min-width:0}
+select:disabled,input:disabled{opacity:1;color:var(--ink)}
+.ok{border-color:var(--yes)!important;background:var(--hl-yes)!important}
+.bad{border-color:var(--no)!important;background:var(--hl-no)!important}
+.mnum{font-weight:700;color:var(--muted);font-size:14px;text-align:center}
+
+/* Summary */
+.summary{font:400 17px/2.2 var(--f-read);background:var(--paper);border-radius:var(--r);padding:16px 18px}
+.summary h4{font:700 16px var(--f-body);text-align:center;margin:0 0 4px}
+.summary .gapn{font:700 12px var(--f-body);color:var(--muted);margin-right:3px}
+.summary select{font-family:var(--f-body);font-size:15px;padding:3px 6px}
+.box{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.box div{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font-size:15px}
+.box b{color:var(--pen);margin-right:6px}
+@media (max-width:560px){.box{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.gapfb{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.gapfb>li{border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.gapfb>li.right{border-color:var(--yes)}.gapfb>li.wrong{border-color:var(--no)}
+
+/* Practice sentences */
+.sents{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.sents>li{border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.sents>li.right{border-color:var(--yes)}.sents>li.wrong{border-color:var(--no)}
+.sent{font:400 17px/2 var(--f-read)}
+.sent select{font-family:var(--f-body);font-size:15px;padding:3px 6px}
+.sent-row{display:flex;gap:10px;align-items:flex-start}
+.sent-row .sent{flex:1;min-width:0}
+.src-note{font-size:14px;color:var(--muted)}
+.src-note i{font-family:var(--f-read)}
+
+/* Toolkit */
+.toolkit{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:10px}
+.toolkit div{background:var(--paper);border-radius:8px;padding:12px}
+.toolkit h4{margin:0 0 4px;font:700 14px var(--f-body)}
+.toolkit p{font-size:14px}
+.toolkit em{font-family:var(--f-read)}
+
+/* Vocabulary */
+.locked{border:1.5px dashed var(--line);border-radius:var(--r);padding:26px 22px;color:var(--muted)}
+.locked p{max-width:62ch}
+.dict{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;margin-bottom:14px}
+.dict label{font-weight:600;font-size:14px}
+.dict input{flex:1 1 180px}
+.vfilter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.vfilter button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;font-size:14px;font-weight:600;color:var(--muted)}
+.vfilter button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--card)}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,270px),1fr));gap:12px}
+.vcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.vcard header{display:flex;gap:8px;align-items:flex-start;justify-content:space-between}
+.vcard h4{margin:0;font:700 17px/1.3 var(--f-body)}
+.vmeta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px}
+.pos{font:600 11px var(--f-body);letter-spacing:.05em;text-transform:uppercase;background:var(--pen-soft);color:var(--pen);border-radius:4px;padding:2px 6px}
+.ipa{font-family:var(--f-read);color:var(--muted)}
+.vi{font-weight:600;color:var(--pen)}
+.ctx{font:italic 15px/1.5 var(--f-read);color:var(--muted);border-left:3px solid var(--hl-key);padding-left:8px}
+.ex{font-size:14px}
+.ex b,.vlinks b{font:600 11px var(--f-body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.vlinks{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:auto;padding-top:6px;border-top:1px solid var(--line)}
+.chip{font:600 12px var(--f-body);text-decoration:none;color:var(--pen);background:var(--pen-soft);border:0;border-radius:999px;padding:4px 10px}
+.chip:hover{filter:brightness(.97);text-decoration:underline}
+.chip.saved{background:var(--hl-yes);color:var(--ink)}
+.reveal{animation:rise .45s ease both}
+@keyframes rise{from{opacity:.2;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* My words */
+.mw-form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) auto;gap:8px}
+@media (max-width:620px){.mw-form{grid-template-columns:1fr}}
+.mw-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.mw-list li{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;background:var(--paper);border-radius:8px;padding:8px 10px}
+.mw-list .w{font-weight:700}
+.mw-list .n{color:var(--muted);flex:1 1 140px;min-width:0}
+.empty{color:var(--muted);font-size:14px}
+
+/* Writing */
+.frames{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.frames li{display:flex;gap:10px;align-items:center;background:var(--paper);border-radius:8px;padding:9px 12px;font-size:15px}
+.frames li span{flex:1;min-width:0}
+textarea{width:100%;min-height:200px;resize:vertical;line-height:1.6;font-family:var(--f-read);font-size:17px}
+.wstat{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:14px;font-weight:600;color:var(--muted)}
+.wstat .good{color:var(--yes)}
+.targets{display:flex;flex-wrap:wrap;gap:6px}
+.targets span{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--muted)}
+.targets span.used{background:var(--hl-yes);border-color:var(--yes);color:var(--ink);font-weight:600}
+.check-line{display:flex;gap:10px;align-items:flex-start;font-size:15px}
+.check-line input{width:20px;height:20px;margin-top:2px;flex:none;accent-color:var(--pen)}
+
+/* Report */
+.report{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+@media (max-width:820px){.report{grid-template-columns:1fr}}
+.rtable{width:100%;border-collapse:collapse;font-size:15px}
+.rtable td{padding:8px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+.rtable td:last-child{text-align:right;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rtable .todo{color:var(--muted);font-weight:500}
+#rep-text{min-height:260px;font:13px/1.55 ui-monospace,Menlo,Consolas,monospace}
+.confirm{background:var(--hl-no);border-radius:8px;padding:10px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px}
+footer{padding-block:40px 56px;color:var(--muted);font-size:13px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="top wrap">
+  <p class="eyebrow">Homework · Complete IELTS Bands 4–5 · Reading 1 &amp; Reading 2</p>
+  <h1>Breaking the <span class="u">habit</span></h1>
+  <p class="lede">Bài tập về nhà gồm hai bài đọc: <i>Breaking the habit</i> (Yes / No / Not Given) và <i>Fighting fear using virtual reality</i> (Summary completion). Làm theo thứ tự từ trên xuống. Bài làm tự lưu trên máy em.</p>
+  <div class="start">
+    <div class="task">
+      <h3><small>Cách làm bài</small>Trước khi bắt đầu</h3>
+      <ol class="howto">
+        <li>Đọc câu hỏi, <b>bấm vào từ</b> để gạch chân keywords, rồi tìm chỗ tương ứng trong bài.</li>
+        <li>Chọn đáp án. Nếu bí, bấm <b>Gợi ý</b> để biết nên tìm ở đoạn nào.</li>
+        <li>Bấm <b>Check answer</b> để xem chữa chi tiết. Đọc kỹ phần paraphrase trước khi sang câu sau.</li>
+        <li>Học thẻ từ vựng, bấm nghe và <b>đọc to</b> từng câu ví dụ. Tra thêm trên Cambridge Dictionary nếu cần.</li>
+        <li>Viết đoạn văn ở Bước 5, rồi vào <b>Kết quả</b> để copy và gửi cô.</li>
+      </ol>
+      <div class="legend-mini" aria-label="Màu highlight">
+        <span style="background:var(--hl-key)">Keywords</span><span style="background:var(--hl-yes)">Cùng nghĩa</span><span style="background:var(--hl-no)">Trái nghĩa</span><span style="background:var(--hl-ng)">Không có trong bài</span>
+      </div>
+    </div>
+    <div class="task">
+      <h3><small>Học sinh</small>Tên của em</h3>
+      <div class="name-row">
+        <label for="stu-name">Họ và tên</label>
+        <input type="text" id="stu-name" autocomplete="name" placeholder="Ví dụ: Nguyễn Minh Anh">
+      </div>
+      <p class="inst">Bài làm được lưu trên trình duyệt này. Nếu đổi sang máy khác, em sẽ phải làm lại từ đầu.</p>
+      <p class="inst">Điểm ở phần Kết quả là điểm <b>lần làm đầu tiên</b>. Em vẫn có thể bấm Làm lại để luyện thêm.</p>
+    </div>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Các bước"><div class="wrap">
+  <div class="nav-links">
+    <a href="#r1">1 · Reading 1</a><a href="#v1">2 · Từ vựng 1</a><a href="#r2">3 · Reading 2</a><a href="#v2">4 · Từ vựng 2</a><a href="#practice">5 · Luyện tập &amp; viết</a><a href="#report">Kết quả</a>
+  </div>
+  <div class="prog" title="Tiến độ"><div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div><span id="prog-txt">0%</span></div>
+</div></nav>
+
+<main>
+<!-- ================= READING 1 ================= -->
+<section class="block wrap" id="r1">
+  <div class="sec-head">
+    <div><p class="eyebrow">Bước 1 · Reading 1 · Yes / No / Not Given</p><h2>Breaking the habit</h2></div>
+  </div>
+  <div class="read-grid">
+    <aside class="passage" id="pass1" aria-label="Reading passage 1">
+      <div class="p-bar">
+        <span class="lbl">Bài đọc 1</span>
+        <button type="button" class="btn ghost sm" data-listen="#p1">Nghe cả bài</button>
+        <button type="button" class="btn quiet sm" data-stop>Dừng</button>
+        <button type="button" class="btn sm p-close" data-close>Đóng</button>
+      </div>
+      <div class="p-body" id="p1">
+        <h3>Breaking the habit</h3>
+        <p class="sub"><span class="ev" data-ev="r1ex1">We all think we can break our bad habits – but they can stay with us for life</span></p>
+        <p class="para">What is a bad habit? The most common definition is that it is something that we do regularly, almost without thinking about it, and which has some sort of negative consequence. This consequence could affect those around us, or it could affect us personally. Those who deny having bad habits are probably lying. Bad habits are part of what makes us human.</p>
+        <p class="para"><span class="ev" data-ev="r1q1">Many early habits, like sucking our thumb, are broken when we are very young.</span> <span class="ev" data-ev="r1q2">We are either told to stop doing it by our parents, or we consciously or subconsciously observe that others do not have the same habit, and we gradually grow out of it.</span> <span class="ev" data-ev="r1q1">It is when we intentionally or unintentionally pick up new habits in our later childhood or early adulthood that it becomes a problem.</span> Unless we can break that habit early on, it becomes a part of our life and becomes 'programmed' into our brain.</p>
+        <p class="para">A recent study of human memory suggests that no matter how hard we try to change our habits, <span class="ev" data-ev="r1q3">it is the old ways that tend to win, especially in situations where we are rushed, stressed or overworked. Habits that we thought we had got rid of can suddenly come back.</span> During the study programme, the researchers showed a group of volunteers several pictures, and gave them words to associate with them (for example, see a picture of tea, and associate it with 'breakfast'). They then showed the volunteers the same pictures again, and gave them new words to associate with them (see a picture of tea, and say 'afternoon').</p>
+        <p class="para">A few days later, the volunteers were given a test. The researchers showed them the pictures, and told them to respond with one of the words they had been given for each one. <span class="ev" data-ev="r1q4">It came as no surprise that their answers were split between the first set of words and the second.</span> <span class="ev" data-ev="r1q5">Two weeks later, they were given the same test again. This time, most of them only gave the first set of words. They appeared to have completely forgotten the second set.</span></p>
+        <p class="para"><span class="ev" data-ev="r1q6">The study confirms that the responses we learn first are those that remain strongest over time.</span> We may try to change our ways, but after a while, <span class="ev" data-ev="r1q6">the response that comes to mind first is usually the first one we learned.</span> The more that response is used, the more automatic it becomes and the harder it becomes to respond in any other way.</p>
+        <p class="para">The study therefore suggests that over time, our bad habits also become automatic, learned behaviour. <span class="ev" data-ev="r1q7">This is not good news for people who picked up bad habits early in life and now want to change or break them. Even when we try to put new, good intentions into practice, those previously learned habits remain stronger</span> in more automatic, unconscious forms of memory.</p>
+      </div>
+    </aside>
+
+    <div class="stack">
+      <div class="open-pass"><button type="button" class="btn" data-open="#pass1">Mở bài đọc 1</button></div>
+
+      <div class="task">
+        <h3><small>Pre-reading · Vocabulary</small>Học trước 6 từ quan trọng</h3>
+        <p class="inst">Bấm loa để nghe, <b>đọc to</b> từng từ, rồi chọn từ đúng cho mỗi định nghĩa.</p>
+        <div id="pv"></div>
+      </div>
+
+      <div class="task">
+        <h3><small>Exercise 1 · Predict</small>Read the title and subheading first</h3>
+        <p class="inst">Chỉ đọc tiêu đề và câu in nghiêng. Theo em, tác giả sẽ nói gì về thói quen xấu?</p>
+        <div id="r1ex1"></div>
+      </div>
+
+      <div class="advice">
+        <h4>Exam advice · Yes / No / Not Given</h4>
+        <ul>
+          <li>Underline words in the statements to help you find the right places in the passage.</li>
+          <li>Look for words in the passage that have the same meaning as or the opposite meaning to the ideas in the statements.</li>
+          <li>If there is nothing in the passage about the idea, the answer is NOT GIVEN.</li>
+        </ul>
+      </div>
+
+      <div class="task">
+        <h3><small>Exercise 2 &amp; 3 · Questions 1–7</small>Do the statements agree with the writer?</h3>
+        <p class="inst"><b>Ex 2:</b> bấm vào từ để gạch chân keywords, rồi bấm <b>Show underlining</b> để so sánh. <b>Ex 3:</b> chọn đáp án và <b>Check answer</b> từng câu.</p>
+        <div class="legend">
+          <b>YES</b><span>if the statement agrees with the claims of the writer</span>
+          <b>NO</b><span>if the statement contradicts the claims of the writer</span>
+          <b>NOT GIVEN</b><span>if it is impossible to say what the writer thinks about this</span>
+        </div>
+        <div id="r1q" class="stack"></div>
+      </div>
+
+      <div class="task reveal" id="toolkit1" hidden>
+        <h3><small>Sau khi chữa</small>Paraphrase toolkit của bài này</h3>
+        <div class="toolkit">
+          <div><h4>Đồng nghĩa</h4><p>return ↔ <em>come back</em><br>under pressure ↔ <em>stressed, rushed, overworked</em></p></div>
+          <div><h4>Đổi cách nói</h4><p>develop bad habits ↔ <em>pick up new habits</em><br>break ↔ <em>grow out of</em></p></div>
+          <div><h4>Trái nghĩa → NO</h4><p>surprised ↔ <em>came as no surprise</em><br>more difficult to remember ↔ <em>remain strongest</em></p></div>
+          <div><h4>Từ tuyệt đối → cẩn thận</h4><p><b>only</b> (Q2): bài nêu <em>hai</em> cách bỏ thói quen → NO</p></div>
+          <div><h4>Có chủ đề, thiếu ý → NOT GIVEN</h4><p>second test ✓ nhưng <b>khó hơn</b>? ✗ (Q5)</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VOCAB 1 ================= -->
+<section class="block wrap" id="v1">
+  <div class="sec-head">
+    <div><p class="eyebrow">Bước 2 · Reading 1 · Vocabulary bank</p><h2>Words to talk about habits</h2></div>
+    <span class="pillar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>Nghe · Đọc to · Tra từ</span>
+  </div>
+  <div class="locked" id="v1-lock"><p>Thẻ từ vựng Reading 1 sẽ mở khi em chữa xong cả 7 câu ở Questions 1–7. Mỗi thẻ có phát âm, nghĩa tiếng Việt, câu gốc trong bài, câu ví dụ và link Cambridge Dictionary.</p></div>
+  <div id="v1-body" hidden></div>
+</section>
+
+<!-- ================= READING 2 ================= -->
+<section class="block wrap" id="r2">
+  <div class="sec-head">
+    <div><p class="eyebrow">Bước 3 · Reading 2 · Summary completion with a box</p><h2>Fighting fear using virtual reality</h2></div>
+  </div>
+  <div class="read-grid">
+    <aside class="passage" id="pass2" aria-label="Reading passage 2">
+      <div class="p-bar">
+        <span class="lbl">Bài đọc 2</span>
+        <button type="button" class="btn ghost sm" data-listen="#p2">Nghe cả bài</button>
+        <button type="button" class="btn quiet sm" data-stop>Dừng</button>
+        <button type="button" class="btn sm p-close" data-close>Đóng</button>
+      </div>
+      <div class="p-body" id="p2">
+        <h3>Fighting fear using virtual reality</h3>
+        <p class="sub"><span class="ev" data-ev="r2gist">Computers are not just for entertainment, shopping or research purposes – as one woman found out when she tried to cure her fears</span></p>
+        <p class="para">Most people have at least one thing they are afraid of. A fear of things like snakes, spiders, dogs, heights or open spaces affects over 90% of the population. In extreme cases, a fear can develop into a <strong class="ev" data-ev="r2bold">phobia</strong>, where the fear of something is so powerful it can affect the way the sufferer lives their life. About 10% of people suffer from a phobia. Most sufferers never seek treatment, because the most common type of cure – 'exposure therapy' – involves them being <strong class="ev" data-ev="r2bold">exposed</strong> to the object of their fear, and this is the last thing many of them are prepared to do.</p>
+        <p class="para">There is now a new cure for phobias, using something called <strong class="ev" data-ev="r2bold">virtual</strong> reality exposure <strong class="ev" data-ev="r2bold">therapy</strong> (VRET). The concept is simple. The person with the phobia wears a virtual reality headset. A computer, controlled by a <strong class="ev" data-ev="r2bold">therapist</strong>, then <strong class="ev" data-ev="r2bold">simulates</strong> a variety of situations in which the sufferer is gradually exposed to the object of their fear, which they view on the headset's screen. At the same time, the therapist explains why they should not be afraid of it. The technique is surprisingly successful, as this case demonstrates.</p>
+        <p class="para">Sara Considine had a serious spider phobia, and had developed several spider-related behaviour patterns. Before going to bed, for example, she would check her room for spiders, then seal the windows with tape so none could get in. She had frightening dreams about spiders every night. Eventually, she decided to get treatment.</p>
+        <p class="para"><span class="ev" data-ev="r2g1">During twelve one-hour virtual reality sessions over a three-month period</span>, <span class="ev" data-ev="r2g2">Ms Considine started very slowly.</span> <span class="ev" data-ev="r2g3">First, she stood a long way from the virtual spider and just looked at it.</span> Slowly, she moved a little closer. The therapist controlling the computer programme then made the virtual spider move. <span class="ev" data-ev="r2g4">After just two sessions, Ms Considine reported that although she still saw spiders in her dreams, they were no longer frightening</span>, and she had even managed to have an amusing 'conversation' with one of them. A few sessions later, the therapist encouraged her to hold the virtual spider in her virtual hand, and put it in places where the presence of a real spider would cause her fear. <span class="ev" data-ev="r2g5">The next stage was to introduce touch.</span> A large toy spider was placed next to her. Ms Considine then reached out to touch the virtual spider she could see on the screen, and at the same time <span class="ev" data-ev="r2g5">her real hand touched the toy spider.</span></p>
+        <p class="para">After her sessions were over, Sara Considine was able to stop her spider-related behaviour. She even took up camping, something she would never have considered before therapy. More recently she has appeared on a television nature programme, where for the first time she was able to hold a real spider in her hands.</p>
+      </div>
+    </aside>
+
+    <div class="stack">
+      <div class="open-pass"><button type="button" class="btn" data-open="#pass2">Mở bài đọc 2</button></div>
+
+      <div class="task">
+        <h3><small>Skim · 2 phút</small>What is the passage mainly about?</h3>
+        <p class="inst">Đọc tiêu đề, câu in nghiêng và câu đầu mỗi đoạn. Chưa cần đọc kỹ.</p>
+        <div id="r2gist"></div>
+      </div>
+
+      <div class="task">
+        <h3><small>Exercise 4 · Words in bold</small>Match the bold words to the definitions</h3>
+        <p class="inst">Tìm 6 từ <b>in đậm</b> trong bài và gõ dạng nguyên mẫu của từ. Kiểm tra cả chính tả.</p>
+        <div id="sp"></div>
+      </div>
+
+      <div class="task">
+        <h3><small>Exercise 5 · Locate</small>Find Sara Considine's VRET treatment course</h3>
+        <p class="inst">Đoạn nào mô tả khóa trị liệu VRET của Sara? Tìm các từ chỉ thời gian như <i>sessions, months, first, after, later</i>.</p>
+        <div id="para"></div>
+      </div>
+
+      <div class="advice">
+        <h4>Exam advice · Summary completion with a box</h4>
+        <ul>
+          <li>Use the title to find the right part of the passage.</li>
+          <li>Read the summary and decide what information you need for each gap.</li>
+          <li>Read the sentence(s) in the passage carefully and underline words that provide the missing information. Choose the option in the box that means the same.</li>
+        </ul>
+      </div>
+
+      <div class="task">
+        <h3><small>Exercise 5 · Questions 1–5</small>Treating a phobia using VRET</h3>
+        <p class="inst">Complete the summary using the list of words and phrases, A–J. Mỗi chỗ trống có nút <b>Gợi ý</b> về loại từ cần điền.</p>
+        <div id="sum" class="stack"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VOCAB 2 ================= -->
+<section class="block wrap" id="v2">
+  <div class="sec-head">
+    <div><p class="eyebrow">Bước 4 · Reading 2 · Vocabulary bank</p><h2>Words to talk about fear and treatment</h2></div>
+    <span class="pillar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>Nghe · Đọc to · Tra từ</span>
+  </div>
+  <div class="locked" id="v2-lock"><p>Thẻ từ vựng Reading 2 sẽ mở khi em chữa xong cả 5 chỗ trống ở Questions 1–5.</p></div>
+  <div id="v2-body" hidden></div>
+</section>
+
+<!-- ================= PRACTICE & WRITING ================= -->
+<section class="block wrap" id="practice">
+  <div class="sec-head">
+    <div><p class="eyebrow">Bước 5 · Luyện tập</p><h2>Use the new words</h2></div>
+  </div>
+  <div class="stack">
+    <div class="task">
+      <h3><small>Vocabulary practice</small>Chọn từ đúng cho mỗi câu</h3>
+      <p class="inst">Mỗi từ dùng một lần. Chú ý dạng của từ (thì, số ít/số nhiều). Bấm <b>Check</b> cạnh từng câu.</p>
+      <div id="vp"></div>
+    </div>
+
+    <div class="two">
+      <div class="task">
+        <h3><small>Writing · 60–100 từ</small>Chọn một đề và viết</h3>
+        <ol class="howto">
+          <li><b>A bad habit:</b> Em có (hoặc từng có) thói quen xấu nào? Em có nó từ khi nào, vì sao? Em sẽ bỏ nó thế nào?</li>
+          <li><b>A fear:</b> Em sợ điều gì? Nỗi sợ đó ảnh hưởng đến em ra sao? Em có muốn thử VRET không? Vì sao?</li>
+        </ol>
+        <p class="inst">Dùng ít nhất <b>5 từ mới</b>. Từ nào em dùng sẽ tự sáng màu xanh bên dưới.</p>
+        <label for="wr" class="fb-label">Bài viết của em</label>
+        <textarea id="wr" placeholder="One bad habit I picked up when I was in Grade 7 is…"></textarea>
+        <div class="wstat"><span id="wcount">0 từ</span><span id="wused">0 từ mới</span><button type="button" class="btn ghost sm" data-saytext="#wr">Nghe bài của em</button><button type="button" class="btn quiet sm" data-stop>Dừng</button></div>
+        <div class="targets" id="targets"></div>
+      </div>
+      <div class="task">
+        <h3><small>Sentence frames</small>Gợi ý câu</h3>
+        <ul class="frames">
+          <li><span>One bad habit I <b>picked up</b> when I was … is …</span><button class="say" data-say="One bad habit I picked up when I was eleven is checking my phone in bed." aria-label="Nghe"></button></li>
+          <li><span>I do it almost without thinking. It has become <b>automatic</b>.</span><button class="say" data-say="I do it almost without thinking. It has become automatic." aria-label="Nghe"></button></li>
+          <li><span>It has some <b>negative consequences</b>: …</span><button class="say" data-say="It has some negative consequences: I feel tired at school." aria-label="Nghe"></button></li>
+          <li><span>When I'm <b>stressed</b> or <b>under pressure</b>, the habit <b>comes back</b>.</span><button class="say" data-say="When I'm stressed or under pressure, the habit comes back." aria-label="Nghe"></button></li>
+          <li><span>I'm <b>afraid of</b> … . I think I have a <b>phobia</b> of …</span><button class="say" data-say="I'm afraid of heights. I think I have a phobia of high places." aria-label="Nghe"></button></li>
+          <li><span>I would / wouldn't try VRET because …</span><button class="say" data-say="I would try VRET because it gradually exposes you to your fear." aria-label="Nghe"></button></li>
+          <li><span><b>The more</b> I practise, <b>the easier</b> it becomes to <b>get rid of</b> it.</span><button class="say" data-say="The more I practise, the easier it becomes to get rid of it." aria-label="Nghe"></button></li>
+        </ul>
+        <span class="pillar" style="align-self:flex-start"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>Pillar 1 · Oral language</span>
+        <p class="inst">Sau khi viết xong: bấm <b>Nghe bài của em</b>, rồi <b>đọc to bài viết 3 lần</b>. Lần cuối, ghi âm bằng điện thoại và gửi cô cùng với kết quả.</p>
+        <label class="check-line"><input type="checkbox" id="readaloud"><span>Em đã đọc to bài viết 3 lần và ghi âm lần cuối.</span></label>
+      </div>
+    </div>
+
+    <div class="task" id="mywords">
+      <h3><small>Sổ từ của em</small>My words</h3>
+      <p class="inst">Ghi lại từ mới em muốn nhớ, kể cả từ không có trong thẻ. Bấm <b>+ Sổ từ</b> trên thẻ từ vựng để thêm nhanh. Mỗi từ có link tra Cambridge.</p>
+      <form class="mw-form" id="mw-form">
+        <input type="text" id="mw-word" placeholder="Từ / cụm từ (vd: bite my nails)" aria-label="Từ mới" required>
+        <input type="text" id="mw-note" placeholder="Nghĩa hoặc câu ví dụ của em" aria-label="Ghi chú">
+        <button type="submit" class="btn">Thêm</button>
+      </form>
+      <ul class="mw-list" id="mw-list"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REPORT ================= -->
+<section class="block wrap" id="report">
+  <div class="sec-head">
+    <div><p class="eyebrow">Nộp bài</p><h2>Kết quả của em</h2></div>
+  </div>
+  <div class="report">
+    <div class="task">
+      <h3><small>Điểm lần làm đầu tiên</small><span id="rep-name">Chưa nhập tên</span></h3>
+      <table class="rtable"><tbody id="rep-rows"></tbody></table>
+    </div>
+    <div class="task">
+      <h3><small>Gửi cô</small>Copy kết quả</h3>
+      <p class="inst">Bấm <b>Copy</b> rồi dán vào tin nhắn gửi cô (Zalo / Messenger), kèm file ghi âm đọc to bài viết.</p>
+      <textarea id="rep-text" readonly aria-label="Kết quả dạng văn bản"></textarea>
+      <div class="actions"><button type="button" class="btn" id="rep-copy">Copy kết quả</button><span id="rep-msg" class="q-ul" aria-live="polite"></span></div>
+      <div class="actions" style="margin-top:6px"><button type="button" class="btn quiet sm" id="wipe">Xoá toàn bộ bài làm</button></div>
+      <div class="confirm" id="wipe-confirm" hidden><span>Xoá hết đáp án, bài viết và sổ từ trên máy này?</span><button type="button" class="btn danger sm" id="wipe-yes">Xoá</button><button type="button" class="btn quiet sm" id="wipe-no">Huỷ</button></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="wrap">Bài đọc và câu hỏi theo Complete IELTS Bands 4–5. Phát âm dùng giọng đọc có sẵn của trình duyệt; link từ điển mở Cambridge Dictionary trong tab mới.</footer>
+
+<script>
+(function(){
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+const mobile=()=>window.matchMedia&&matchMedia('(max-width:960px)').matches;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const SPK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a4.5 4.5 0 0 1 0 7M18.5 6a8 8 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const cam=(q,ds)=>'https://dictionary.cambridge.org/search/direct/?datasetsearch='+(ds||'english')+'&q='+encodeURIComponent(q.trim()).replace(/%20/g,'+');
+
+/* ---------- Storage ---------- */
+const KEY='hw-breaking-the-habit-v1';
+let S={};try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){S={}}
+S=Object.assign({name:'',a:{},done:{},ul:{},r:{},hint:{},writing:'',readAloud:false,words:[]},S);
+['a','done','ul','r','hint'].forEach(k=>{if(!S[k]||typeof S[k]!=='object')S[k]={}});
+if(!Array.isArray(S.words))S.words=[];
+let tSave;
+function save(){clearTimeout(tSave);tSave=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}},200);refresh()}
+function first(id,val){if(!(id in S.r))S.r[id]=val}
+
+/* ---------- Text to speech ---------- */
+const tts=(()=>{let ok=false,voice=null;try{ok='speechSynthesis' in window&&typeof SpeechSynthesisUtterance!=='undefined'}catch(e){}
+  function pick(){try{const vs=speechSynthesis.getVoices();voice=vs.find(v=>/en[-_]GB/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null}catch(e){}}
+  if(ok){pick();try{speechSynthesis.onvoiceschanged=pick}catch(e){}}
+  return{ok,say(t,rate){if(!ok||!t)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-GB';if(voice)u.voice=voice;u.rate=rate||0.9;speechSynthesis.speak(u)}catch(e){}},
+    stop(){try{speechSynthesis.cancel()}catch(e){}}};})();
+if(!tts.ok)document.documentElement.classList.add('no-tts');
+function fillSpeakers(root){$$('.say',root||document).forEach(b=>{if(!b.innerHTML.trim())b.innerHTML=SPK})}
+
+/* ---------- Passage helpers ---------- */
+$$('.p-body').forEach(pb=>$$('.para',pb).forEach((p,i)=>{p.dataset.n=i+1;p.insertAdjacentHTML('afterbegin',`<button type="button" class="pnum" data-saypara title="Nghe đoạn ${i+1}" aria-label="Nghe đoạn ${i+1}">${i+1}</button>`)}));
+function openP(p){if(!p||!mobile())return;p.classList.add('open');document.body.classList.add('lock')}
+function closeP(p){p.classList.remove('open');document.body.classList.remove('lock')}
+function showEv(id,type,label){$$(`[data-ev="${id}"]`).forEach((el,i)=>{el.classList.remove('t-yes','t-no','t-ng');el.classList.add('on','t-'+type);if(i===0&&label)el.dataset.label=label})}
+function clearEv(prefix){$$(`[data-ev^="${prefix}"]`).forEach(el=>{el.classList.remove('on','t-yes','t-no','t-ng','flash');delete el.dataset.label})}
+function goTo(el,cb){const p=el.closest('.passage');const wasOpen=p&&p.classList.contains('open');openP(p);setTimeout(()=>{el.scrollIntoView({behavior:RM?'auto':'smooth',block:'center'});cb&&cb()},mobile()&&!wasOpen?300:0)}
+function flashEv(id){const els=$$(`[data-ev="${id}"]`);if(!els.length)return;goTo(els[0],()=>els.forEach(el=>{el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash')}))}
+function markPara(pid,n){$$(pid+' .para').forEach(x=>x.classList.toggle('para-on',+x.dataset.n===n))}
+function flashPara(pid,n){markPara(pid,n);const el=$(`${pid} .para[data-n="${n}"]`);if(el)goTo(el)}
+
+const TYPE={syn:'Cùng nghĩa',form:'Đổi dạng từ',opp:'Trái nghĩa → mâu thuẫn',ng:'Không có trong bài',flip:'Đảo ý nhưng cùng nghĩa'};
+const AL={YES:'YES',NO:'NO',NG:'NOT GIVEN'},AT={YES:'yes',NO:'no',NG:'ng'};
+function pairsHTML(pairs){return '<ul class="pairs">'+pairs.map(p=>`<li class="pair p-${p[2]}"><span class="pq">${esc(p[0])}</span><span class="parrow" aria-hidden="true">↔</span><span class="pp">${esc(p[1])}</span><span class="ptag">${TYPE[p[2]]}</span></li>`).join('')+'</ul>'}
+
+/* ================= DATA ================= */
+const PV=[
+ ['consequence','a result of an action, often a bad one'],
+ ['deny','to say that something is not true'],
+ ['observe','to watch or notice something carefully'],
+ ['gradually','slowly, little by little'],
+ ['automatic','done without thinking about it'],
+ ['intention','something that you plan or want to do'],
+];
+const PV_IPA={consequence:'/ˈkɒnsɪkwəns/',deny:'/dɪˈnaɪ/',observe:'/əbˈzɜːv/',gradually:'/ˈɡrædʒuəli/',automatic:'/ˌɔːtəˈmætɪk/',intention:'/ɪnˈtenʃn/'};
+
+const Q1=[
+ {id:'1',text:'We usually [develop bad habits] when we are [very young].',ans:'NO',para:2,hint:'Đọc đoạn 2: thói quen nào bỏ được khi còn rất nhỏ, thói quen nào gây vấn đề?',
+  pairs:[['develop bad habits','pick up new habits','syn'],['when we are very young','in our later childhood or early adulthood','opp'],['(very young)','early habits … are broken when we are very young','opp']],
+  why:'Thói quen lúc rất nhỏ (như mút tay) thường <b>được bỏ</b> khi còn nhỏ. Thói quen xấu trở thành vấn đề là những thói quen em <b>“pick up … in our later childhood or early adulthood”</b>. Câu hỏi nói ngược lại → <b>NO</b>.',
+  trap:'“very young” có trong bài, nhưng đi với <i>are broken</i> (bỏ đi), không phải <i>develop</i> (hình thành).'},
+ {id:'2',text:'We can [only] [break] bad habits if people [tell us] to do so.',ans:'NO',para:2,hint:'Đọc đoạn 2. Có mấy cách để bỏ thói quen hồi nhỏ? Chú ý từ “only”.',
+  pairs:[['break bad habits','grow out of it','syn'],['people tell us to do so','told to stop doing it by our parents','syn'],['ONLY if people tell us','either … told by our parents, OR … observe that others do not have the same habit','opp']],
+  why:'Bài nêu <b>hai</b> cách: bố mẹ bảo dừng, <b>hoặc</b> tự quan sát thấy người khác không có thói quen đó (<i>either … or …</i>). Vậy không phải <b>“only”</b> khi có người bảo → <b>NO</b>.',
+  trap:'Các từ tuyệt đối như <b>only, always, never, all</b> thường là dấu hiệu của NO.'},
+ {id:'3',text:'[Bad habits] may [return] when we are [under pressure].',ans:'YES',para:3,hint:'Đọc đoạn 3: tìm từ đồng nghĩa với “return” và “under pressure”.',
+  pairs:[['bad habits','habits that we thought we had got rid of / the old ways','syn'],['may return','can suddenly come back','syn'],['under pressure','rushed, stressed or overworked','syn']],
+  why:'Thói quen cũ <b>“tend to win, especially in situations where we are rushed, stressed or overworked”</b> và <b>“can suddenly come back”</b>. Hoàn toàn khớp với câu hỏi → <b>YES</b>.'},
+ {id:'4',text:'[Researchers] were [surprised] by the answers that the volunteers gave in the [first test].',ans:'NO',para:4,hint:'Đọc đoạn 4, câu nói về kết quả bài test đầu tiên.',
+  pairs:[['the first test','a few days later, the volunteers were given a test','syn'],['were surprised','it came as no surprise','opp']],
+  why:'<b>“It came as no surprise that their answers were split…”</b> = không có gì ngạc nhiên. Câu hỏi nói các nhà nghiên cứu ngạc nhiên → <b>NO</b>.'},
+ {id:'5',text:'The [volunteers] found the test [more difficult] when they did it the [second time].',ans:'NG',para:4,hint:'Đọc đoạn 4. Bài có nói gì về cảm nhận “khó hay dễ” của tình nguyện viên không?',
+  pairs:[['the second time','two weeks later, they were given the same test again','syn'],['found the test more difficult','(bài không nói về độ khó)','ng']],
+  why:'Bài chỉ nói lần 2 họ chủ yếu đưa ra nhóm từ đầu tiên và quên nhóm thứ hai. Không có thông tin họ <b>thấy bài test khó hơn</b> hay không → <b>NOT GIVEN</b>.',
+  trap:'“forgotten the second set” dễ khiến em nghĩ bài test khó hơn. Đó là suy luận của em, không phải ý tác giả.'},
+ {id:'6',text:'People find it [more difficult to remember] things they [learnt when they were young].',ans:'NO',para:5,hint:'Đọc đoạn 5: những gì học trước tiên thì nhớ mạnh hay yếu?',
+  pairs:[['things they learnt when they were young','the responses we learn first','syn'],['more difficult to remember','remain strongest over time / comes to mind first','opp']],
+  why:'<b>“The responses we learn first are those that remain strongest over time”</b> và là điều <b>“comes to mind first”</b>. Tức là những gì học sớm lại <b>dễ nhớ nhất</b> → <b>NO</b>.'},
+ {id:'7',text:'If we develop bad habits [early in life], they are [harder to get rid of].',ans:'YES',para:6,hint:'Đọc đoạn 6, câu có cụm “early in life”.',
+  pairs:[['develop bad habits early in life','picked up bad habits early in life','syn'],['harder to get rid of','not good news for people who … want to change or break them','syn'],['harder to get rid of','previously learned habits remain stronger','syn']],
+  why:'<b>“This is not good news for people who picked up bad habits early in life and now want to change or break them”</b>, vì thói quen học trước <b>“remain stronger”</b>. Khớp với câu hỏi → <b>YES</b>.'},
+];
+
+const SP=[
+ ['to do or make something which behaves or looks like something real, but which is not real',['simulate','simulates'],'simulate'],
+ ['the work of treating mental or physical illness without surgery',['therapy'],'therapy'],
+ ['using computer images and sounds that make you think an imagined situation or object is real',['virtual'],'virtual'],
+ ['to make someone experience something or be affected by it',['expose','exposed'],'expose'],
+ ['an extreme fear of something',['phobia'],'phobia'],
+ ["someone whose job is to treat a particular type of mental or physical illness",['therapist'],'therapist'],
+];
+
+const BOX={A:'afraid of',B:'amused by',C:'contact',D:'held',E:'observed',F:'quickly',G:'slowly',H:'touch',I:'three',J:'twelve'};
+const GAPS=[
+ {n:1,ans:'I',hint:'Cần một <b>con số</b> chỉ số tháng.',pairs:[['lasted for three months','over a three-month period','syn']],why:'<b>“Over a three-month period”</b> → chương trình kéo dài <b>3 tháng</b> → <b>I three</b>.',trap:'J twelve là số <b>buổi</b> trị liệu (twelve one-hour sessions), không phải số tháng.'},
+ {n:2,ans:'F',hint:'Cần một <b>trạng từ</b> sau “did not move very…”. Chú ý chữ <b>not</b>.',pairs:[['did not move very quickly','started very slowly','flip']],why:'Bài nói <b>“started very slowly”</b>. Câu tóm tắt có <b>not</b>: “did not move very <u>quickly</u>” = đi rất chậm → <b>F quickly</b>.',trap:'G slowly là từ trong bài, nhưng “did not move very slowly” lại mang nghĩa ngược lại.'},
+ {n:3,ans:'E',hint:'Cần một <b>động từ quá khứ</b> (V-ed) sau “she just…”.',pairs:[['she just observed the virtual spider','she … just looked at it','syn']],why:'<b>“Just looked at it”</b> = chỉ quan sát → <b>E observed</b>.',trap:'D held là bước <b>sau</b> (“A few sessions later … hold the virtual spider”), không phải lúc đầu.'},
+ {n:4,ans:'A',hint:'Cần <b>tính từ + giới từ</b> sau “stop being…”.',pairs:[['stop being afraid of the spiders in her dreams','they were no longer frightening','syn']],why:'Nhện trong mơ <b>“no longer frightening”</b> = cô ấy không còn <b>sợ</b> chúng nữa → <b>A afraid of</b>.',trap:'B amused by có liên quan (“an amusing conversation”) nhưng “stop being amused by” = hết thấy buồn cười. Sai nghĩa.'},
+ {n:5,ans:'C',hint:'Cần một <b>danh từ</b> sau “making physical…”. Cụm nào đi với “make … with”?',pairs:[['making physical contact with a toy spider','introduce touch / her real hand touched the toy spider','syn']],why:'Bước tiếp theo là <b>“introduce touch”</b>: tay thật chạm vào nhện đồ chơi. Cụm cố định là <b>make (physical) contact with</b> → <b>C contact</b>.',trap:'H touch đúng nghĩa nhưng sai cụm từ: không nói “make physical touch with”.'},
+];
+
+const VP_BANK=['associate','break','consequences','get rid of','grew out of','no longer','seek','simulates','stressed','took up'];
+const VP=[
+ ['I\'m trying to','the habit of checking my phone in bed.','break','Reading 1','we can break our bad habits'],
+ ['My little brother finally','sucking his thumb when he was five.','grew out of','Reading 1','we gradually grow out of it'],
+ ['Eating too much sugar can have negative','for your health.','consequences','Reading 1','some sort of negative consequence'],
+ ['I always','the smell of rain with my first day at school.','associate','Reading 1','associate it with \'breakfast\''],
+ ['When I\'m','before an exam, I bite my nails.','stressed','Reading 1','rushed, stressed or overworked'],
+ ['Many people with a phobia never','treatment.','seek','Reading 2','most sufferers never seek treatment'],
+ ['My dad','cycling last year and now he rides every weekend.','took up','Reading 2','she even took up camping'],
+ ['This video game','a real football match.','simulates','Reading 2','a computer … simulates a variety of situations'],
+ ['After the therapy, spiders were','frightening for Sara.','no longer','Reading 2','they were no longer frightening'],
+ ['I want to','my old habit of eating late at night.','get rid of','Reading 1','habits that we thought we had got rid of'],
+];
+
+/* Vocabulary: [term, pos, ipa, vi, context, example, tag, cambridge query] */
+const V1=[
+ ['habit','n','/ˈhæbɪt/','thói quen','What is a bad habit?','Reading before bed is a good habit.','word','habit'],
+ ['break a habit','expr','/breɪk ə ˈhæbɪt/','bỏ một thói quen','We all think we can break our bad habits','I want to break the habit of staying up late.','phrase','habit'],
+ ['negative consequence','n','/ˈneɡətɪv ˈkɒnsɪkwəns/','hậu quả tiêu cực','has some sort of negative consequence','Skipping breakfast can have negative consequences for your health.','phrase','consequence'],
+ ['deny + V-ing','v','/dɪˈnaɪ/','phủ nhận (đã làm gì)','Those who deny having bad habits are probably lying.','He denied eating the last piece of cake.','word','deny'],
+ ['part of what makes us human','expr','/ˈhjuːmən/','một phần làm nên con người','Bad habits are part of what makes us human.','Making mistakes is part of what makes us human.','expr','human'],
+ ['suck your thumb','expr','/sʌk jɔː θʌm/','mút ngón tay cái','like sucking our thumb','My baby cousin still sucks her thumb when she sleeps.','phrase','suck'],
+ ['consciously / subconsciously','adv','/ˈkɒnʃəsli/ · /sʌbˈkɒnʃəsli/','có ý thức / trong tiềm thức','we consciously or subconsciously observe…','I subconsciously touch my hair when I\'m nervous.','word','subconsciously'],
+ ['observe','v','/əbˈzɜːv/','quan sát, nhận thấy','observe that others do not have the same habit','Children learn by observing their parents.','word','observe'],
+ ['grow out of','phr v','/ɡrəʊ ˈaʊt əv/','bỏ được (thói quen) khi lớn lên','we gradually grow out of it','He grew out of his fear of the dark when he was eight.','phrase','grow out of'],
+ ['gradually','adv','/ˈɡrædʒuəli/','dần dần','we gradually grow out of it','My English is gradually getting better.','word','gradually'],
+ ['intentionally / unintentionally','adv','/ɪnˈtenʃənəli/ · /ˌʌnɪnˈtenʃənəli/','cố ý / vô tình','intentionally or unintentionally pick up new habits','I unintentionally deleted my homework.','word','intentionally'],
+ ['pick up (a habit)','phr v','/pɪk ˈʌp/','nhiễm, học theo (thói quen)','pick up new habits in our later childhood','I picked up the habit of biting my nails from my brother.','phrase','pick up'],
+ ['early adulthood','n','/ˈɜːli ˈædʌlthʊd/','giai đoạn đầu tuổi trưởng thành','in our later childhood or early adulthood','Many people move away from home in early adulthood.','phrase','adulthood'],
+ ['early on','adv','/ˌɜːli ˈɒn/','từ sớm, ngay từ đầu','Unless we can break that habit early on','It\'s easier to fix pronunciation mistakes early on.','expr','early on'],
+ ['no matter how hard we try','expr','/nəʊ ˈmætə haʊ hɑːd/','dù cố gắng thế nào đi nữa','no matter how hard we try to change our habits','No matter how hard I try, I can\'t wake up at 6 a.m.','expr','no matter'],
+ ['rushed / stressed / overworked','adj','/rʌʃt/ · /strest/ · /ˌəʊvəˈwɜːkt/','vội vã / căng thẳng / làm việc quá sức','where we are rushed, stressed or overworked','I eat junk food when I\'m stressed and overworked.','word','overworked'],
+ ['under pressure','expr','/ˈʌndə ˈpreʃə/','chịu áp lực','Question 3: when we are under pressure','I can\'t think clearly when I\'m under pressure.','expr','under pressure'],
+ ['get rid of','expr','/ɡet ˈrɪd əv/','loại bỏ, thoát khỏi','Habits that we thought we had got rid of','I want to get rid of my old clothes.','phrase','get rid of'],
+ ['come back','phr v','/kʌm ˈbæk/','quay trở lại','can suddenly come back','When I\'m tired, my old habit comes back.','phrase','come back'],
+ ['volunteer','n','/ˌvɒlənˈtɪə/','tình nguyện viên','showed a group of volunteers several pictures','The study needed 50 volunteers.','word','volunteer'],
+ ['associate A with B','v','/əˈsəʊʃieɪt/','liên tưởng A với B','associate it with \'breakfast\'','I always associate the smell of phở with my grandmother\'s kitchen.','word','associate'],
+ ['respond with','v','/rɪˈspɒnd wɪð/','đáp lại bằng','respond with one of the words','She responded with a smile.','word','respond'],
+ ['It came as no surprise that…','expr','/nəʊ səˈpraɪz/','không có gì ngạc nhiên khi…','It came as no surprise that their answers were split','It came as no surprise that he passed – he studied every day.','expr','surprise'],
+ ['be split between','expr','/splɪt bɪˈtwiːn/','được chia ra giữa','answers were split between the first set and the second','The class was split between two teams.','expr','split'],
+ ['appear to have + V3','expr','/əˈpɪə/','có vẻ như đã…','They appeared to have completely forgotten the second set.','He appears to have lost his keys.','expr','appear'],
+ ['confirm','v','/kənˈfɜːm/','xác nhận, khẳng định','The study confirms that…','The results confirm that sleep helps memory.','word','confirm'],
+ ['come to mind','expr','/kʌm tə ˈmaɪnd/','nảy ra trong đầu','the response that comes to mind first','When I think of Germany, bread and Christmas markets come to mind.','expr','come to mind'],
+ ['automatic','adj','/ˌɔːtəˈmætɪk/','tự động (làm mà không cần nghĩ)','the more automatic it becomes','Riding a bike becomes automatic after a while.','word','automatic'],
+ ['The more…, the more…','structure','/ðə mɔː/','càng… thì càng…','The more that response is used, the more automatic it becomes','The more you read, the more words you learn.','expr','the more'],
+ ['put sth into practice','expr','/pʊt ˈɪntə ˈpræktɪs/','áp dụng vào thực tế','put new, good intentions into practice','Try to put the new words into practice in your writing.','expr','put into practice'],
+ ['intention','n','/ɪnˈtenʃn/','ý định','good intentions','My intention is to study one hour every day.','word','intention'],
+ ['unconscious','adj','/ʌnˈkɒnʃəs/','vô thức','unconscious forms of memory','Many of our habits are unconscious.','word','unconscious'],
+];
+const V2=[
+ ['be afraid of','expr','/əˈfreɪd əv/','sợ','one thing they are afraid of','My sister is afraid of the dark.','phrase','afraid'],
+ ['heights','n','/haɪts/','độ cao (sợ độ cao)','spiders, dogs, heights or open spaces','I\'m scared of heights, so I never go on roller coasters.','word','height'],
+ ['open spaces','n','/ˈəʊpən ˈspeɪsɪz/','không gian rộng, trống trải','heights or open spaces','Some people feel nervous in large open spaces.','phrase','open space'],
+ ['the population','n','/ˌpɒpjuˈleɪʃn/','dân số, người dân','affects over 90% of the population','Over half of the population lives in cities.','word','population'],
+ ['phobia','n','/ˈfəʊbiə/','chứng sợ hãi cực độ, ám ảnh','a fear can develop into a phobia','She has a phobia of needles.','word','phobia'],
+ ['develop into','v','/dɪˈveləp ˈɪntə/','phát triển thành','a fear can develop into a phobia','A small cold can develop into something serious.','phrase','develop'],
+ ['sufferer','n','/ˈsʌfərə/','người mắc (bệnh, chứng)','the way the sufferer lives their life','Phobia sufferers often avoid certain places.','word','sufferer'],
+ ['suffer from','v','/ˈsʌfə frəm/','mắc, bị (bệnh, chứng)','About 10% of people suffer from a phobia.','My dad suffers from back pain.','phrase','suffer'],
+ ['seek treatment','expr','/siːk ˈtriːtmənt/','tìm cách điều trị','Most sufferers never seek treatment','If the pain continues, you should seek treatment.','phrase','seek'],
+ ['cure','n / v','/kjʊə/','cách chữa trị / chữa khỏi','a new cure for phobias','There is no cure for the common cold.','word','cure'],
+ ['therapy','n','/ˈθerəpi/','liệu pháp, trị liệu','exposure therapy','Music therapy can help people relax.','word','therapy'],
+ ['expose sb to sth','v','/ɪkˈspəʊz/','cho ai tiếp xúc với','being exposed to the object of their fear','Children who are exposed to two languages often learn both.','word','expose'],
+ ['the last thing sb is prepared to do','expr','/ðə lɑːst θɪŋ/','điều cuối cùng ai muốn làm (= hoàn toàn không muốn)','this is the last thing many of them are prepared to do','Touching a snake is the last thing I\'m prepared to do!','expr','the last thing'],
+ ['virtual reality','n','/ˌvɜːtʃuəl riˈæləti/','thực tế ảo','a virtual reality headset','We visited a museum in virtual reality.','phrase','virtual reality'],
+ ['headset','n','/ˈhedset/','kính / tai nghe đội đầu','wears a virtual reality headset','Put on the headset and look around.','word','headset'],
+ ['therapist','n','/ˈθerəpɪst/','nhà trị liệu','controlled by a therapist','The therapist helped him talk about his fears.','word','therapist'],
+ ['simulate','v','/ˈsɪmjuleɪt/','mô phỏng','simulates a variety of situations','Flight games simulate flying a real plane.','word','simulate'],
+ ['a variety of','expr','/ə vəˈraɪəti əv/','nhiều loại khác nhau','a variety of situations','The café sells a variety of drinks.','phrase','variety'],
+ ['technique','n','/tekˈniːk/','kỹ thuật, phương pháp','The technique is surprisingly successful','Skimming is a useful reading technique.','word','technique'],
+ ['demonstrate','v','/ˈdemənstreɪt/','chứng minh, cho thấy','as this case demonstrates','This example demonstrates how sleep helps memory.','word','demonstrate'],
+ ['behaviour pattern','n','/bɪˈheɪvjə ˈpætn/','khuôn mẫu hành vi','spider-related behaviour patterns','Our behaviour patterns change when we are stressed.','phrase','pattern'],
+ ['seal','v','/siːl/','dán kín, bịt kín','seal the windows with tape','Seal the box with tape before you post it.','word','seal'],
+ ['eventually','adv','/ɪˈventʃuəli/','cuối cùng (sau một thời gian)','Eventually, she decided to get treatment.','After many tries, I eventually passed the test.','word','eventually'],
+ ['session','n','/ˈseʃn/','buổi (học, trị liệu)','twelve one-hour virtual reality sessions','We have two speaking sessions a week.','word','session'],
+ ['no longer','adv','/nəʊ ˈlɒŋɡə/','không còn… nữa','they were no longer frightening','I no longer bite my nails.','expr','no longer'],
+ ['manage to + V','expr','/ˈmænɪdʒ tə/','xoay xở làm được','she had even managed to have an amusing \'conversation\'','I managed to finish my homework before dinner.','expr','manage'],
+ ['amusing','adj','/əˈmjuːzɪŋ/','thú vị, buồn cười','an amusing \'conversation\'','He told us an amusing story about his cat.','word','amusing'],
+ ['encourage sb to + V','v','/ɪnˈkʌrɪdʒ/','khuyến khích ai làm gì','the therapist encouraged her to hold the virtual spider','My teacher encourages us to read in English every day.','word','encourage'],
+ ['presence','n','/ˈprezns/','sự có mặt','the presence of a real spider would cause her fear','I feel calm in the presence of my family.','word','presence'],
+ ['reach out','phr v','/riːtʃ ˈaʊt/','với tay ra','reached out to touch the virtual spider','She reached out and took my hand.','phrase','reach out'],
+ ['make contact with','expr','/meɪk ˈkɒntækt wɪð/','tiếp xúc, chạm vào','Question 5: making physical contact with a toy spider','Don\'t make eye contact with an angry dog.','expr','contact'],
+ ['take up (a hobby)','phr v','/teɪk ˈʌp/','bắt đầu (một sở thích)','She even took up camping','I took up swimming last summer.','phrase','take up'],
+ ['consider','v','/kənˈsɪdə/','cân nhắc, nghĩ đến','something she would never have considered before therapy','Have you considered studying abroad?','word','consider'],
+];
+
+const TARGETS=[
+ ['break (a habit)',/\b(break|breaks|breaking|broke|broken)\b/i],['pick up',/\b(pick|picks|picking|picked)\s+(it\s+|them\s+)?up\b/i],
+ ['grow out of',/\b(grow|grows|growing|grew|grown)\s+out\s+of\b/i],['get rid of',/\b(get|gets|getting|got|gotten)\s+rid\s+of\b/i],
+ ['consequence',/\bconsequences?\b/i],['gradually',/\bgradually\b/i],['automatic',/\bautomatic/i],['come to mind',/\b(come|comes|came)\s+to\s+mind\b/i],
+ ['stressed / under pressure',/\b(stressed|under pressure|overworked|rushed)\b/i],['associate',/\bassociat/i],['intention',/\bintention/i],
+ ['put into practice',/\binto practice\b/i],['no matter how',/\bno matter how\b/i],['the more…, the…',/\bthe more\b[^.!?]*,\s*the\s+\w+/i],
+ ['afraid of',/\bafraid of\b/i],['phobia',/\bphobias?\b/i],['expose',/\bexpos(e|ed|es|ing|ure)\b/i],['therapy / therapist',/\btherap/i],
+ ['seek (treatment)',/\b(seek|seeks|seeking|sought)\b/i],['eventually',/\beventually\b/i],['no longer',/\bno longer\b/i],
+ ['manage to',/\bmanag(e|ed|es|ing)\s+to\b/i],['encourage',/\bencourag/i],['take up',/\b(take|takes|taking|took|taken)\s+up\b/i],['consider',/\bconsider/i],
+];
+
+/* ================= COMPONENTS ================= */
+
+/* --- Matching with selects (pre-vocab) --- */
+function mountPV(el){
+  const opts=PV.map(r=>r[0]).slice().sort();
+  const paint=()=>{const done=!!S.done.pv;
+    el.innerHTML=`<div class="actions" style="margin-bottom:10px">${opts.map(w=>`<button type="button" class="chip" data-say="${w}">${w} <span class="ipa">${PV_IPA[w]}</span></button>`).join('')}</div>
+     <ul class="match">${PV.map((r,i)=>{const v=S.a['pv-'+i]||'',ok=v===r[0];return `<li class="${done?(ok?'right':'wrong'):''}"><span class="mnum">${i+1}</span><label for="pv-${i}">${esc(r[1])}</label>
+       <select id="pv-${i}" data-k="pv-${i}" ${done?'disabled':''}><option value="">— chọn từ —</option>${opts.map(w=>`<option ${v===w?'selected':''}>${w}</option>`).join('')}</select>
+       ${done?`<span class="fix">${ok?'':'Đáp án: <b>'+r[0]+'</b> · '}<button type="button" class="link" data-say="${r[0]}">nghe</button></span>`:''}</li>`}).join('')}</ul>
+     <div class="actions"><button type="button" class="btn" data-act="check" ${done?'disabled':''}>Check</button>${done?'<button type="button" class="btn quiet" data-act="reset">Làm lại</button>':''}
+     <p class="result">${done?`<span class="score">${PV.filter((r,i)=>S.a['pv-'+i]===r[0]).length}/${PV.length}</span>Đọc to lại 6 từ trước khi sang bài đọc.`:''}</p></div>`};
+  el.addEventListener('change',e=>{const s=e.target.closest('select[data-k]');if(s){S.a[s.dataset.k]=s.value;save()}});
+  el.addEventListener('click',e=>{const a=e.target.closest('[data-act]');if(!a)return;
+    if(a.dataset.act==='check'){S.done.pv=1;PV.forEach((r,i)=>first('pv-'+i,S.a['pv-'+i]===r[0]));save();paint()}
+    if(a.dataset.act==='reset'){delete S.done.pv;PV.forEach((r,i)=>delete S.a['pv-'+i]);save();paint()}});
+  paint();
+}
+
+/* --- Multiple choice --- */
+function mountMC(el,cfg){
+  const L=cfg.letters||cfg.opts.map((o,i)=>String.fromCharCode(65+i));
+  const paint=()=>{const sel=S.a[cfg.id],done=!!S.done[cfg.id],ok=sel===cfg.ans;
+    el.innerHTML=`<div class="mc ${cfg.row?'row':''}">${cfg.opts.map((o,i)=>{const c=[];if(sel===i)c.push('sel');if(done){if(i===cfg.ans)c.push('correct');else if(i===sel)c.push('incorrect')}
+       return `<button type="button" class="${c.join(' ')}" data-i="${i}" ${done?'disabled':''}>${cfg.row?'':`<b>${L[i]}</b>`}<span>${esc(o)}</span></button>`}).join('')}</div>
+     <div class="actions"><button type="button" class="btn" data-act="check" ${done?'disabled':''}>Check answer</button>${done?'<button type="button" class="btn quiet" data-act="reset">Làm lại</button>':''}
+       <p class="result" aria-live="polite">${done?(ok?'<span class="score">✓</span>Chính xác!':`<span class="score">✗</span>Đáp án đúng: ${esc(cfg.row?cfg.opts[cfg.ans]:L[cfg.ans])}`):''}</p></div>
+     ${done?`<div class="fb"><p class="why">${cfg.why}</p>${cfg.pairs?pairsHTML(cfg.pairs):''}${cfg.ev?`<button type="button" class="link" data-flash="${cfg.ev}">Xem trong bài →</button>`:''}${cfg.para?`<button type="button" class="link" data-para="${cfg.para}">Xem đoạn ${cfg.para.split('|')[1]} →</button>`:''}</div>`:''}`;
+    if(done){if(cfg.ev)showEv(cfg.ev,'yes',cfg.label||'');cfg.onDone&&cfg.onDone()}};
+  el.addEventListener('click',e=>{const b=e.target.closest('.mc button');if(b&&!b.disabled){S.a[cfg.id]=+b.dataset.i;save();paint();return}
+    const a=e.target.closest('[data-act]');if(!a)return;
+    if(a.dataset.act==='check'){if(S.a[cfg.id]==null){$('.result',el).textContent='Em hãy chọn một đáp án trước.';return}S.done[cfg.id]=1;first(cfg.id,S.a[cfg.id]===cfg.ans);save();paint()}
+    if(a.dataset.act==='reset'){delete S.a[cfg.id];delete S.done[cfg.id];if(cfg.ev)clearEv(cfg.ev);cfg.onReset&&cfg.onReset();save();paint()}});
+  paint();
+}
+
+/* --- Y/N/NG statements --- */
+function toks(text){const out=[];let g=0;const re=/\[([^\]]+)\]|([^\s\[\]]+)/g;let m;
+  while((m=re.exec(text))){if(m[1]){g++;m[1].split(/\s+/).forEach(w=>out.push({w,k:g}))}
+    else{const mm=m[2].match(/^(.*?)([.,;:!?]*)$/);if(mm[1])out.push({w:mm[1],k:0});if(mm[2])out.push({w:mm[2],k:0,p:1})}}
+  return out}
+function ulCount(q,ul){const T=toks(q.text);const ks=[...new Set(T.filter(t=>t.k).map(t=>t.k))];return[ks.filter(k=>T.some((t,i)=>t.k===k&&ul.includes(i))).length,ks.length]}
+function mountStatements(el,items,cfg){
+  el.innerHTML=items.map(q=>`<div class="q" data-id="${q.id}"></div>`).join('')+
+   `<div class="actions"><span class="fb-label">Cả bài</span><button type="button" class="btn ghost" data-act="ulall">Show all underlining</button><button type="button" class="btn" data-act="all">Check all answers</button><button type="button" class="btn quiet" data-act="reset">Làm lại</button><p class="result" aria-live="polite"></p></div>`;
+  const ID=q=>cfg.pre+q.id;
+  const inner=q=>{const id=ID(q),done=!!S.done[id],ulShown=!!S.done['ul-'+id],ul=S.ul[id]||[],sel=S.a[id];
+    let s='';toks(q.text).forEach((t,i)=>{if(t.p){s+=esc(t.w);return}const c=['tok'];if(ul.includes(i))c.push('ul');if(ulShown&&t.k)c.push('key');if(ulShown&&!t.k&&ul.includes(i))c.push('extra');
+      s+=(i?' ':'')+`<span class="${c.join(' ')}" data-i="${i}"${ulShown?'':' role="button" tabindex="0"'}>${esc(t.w)}</span>`});
+    const opts=['YES','NO','NG'].map(v=>{const c=['opt'];if(sel===v)c.push('sel');if(done){if(v===q.ans)c.push('correct');else if(v===sel)c.push('incorrect')}
+      return `<button type="button" class="${c.join(' ')}" data-v="${v}" aria-pressed="${sel===v}" ${done?'disabled':''}>${AL[v]}</button>`}).join('');
+    const uc=ulShown?ulCount(q,ul):null;
+    const hint=S.hint[id]&&!done?`<p class="hint"><span>${q.hint}</span><button type="button" class="link" data-para="${cfg.pid}|${q.para}">Mở đoạn ${q.para} →</button></p>`:'';
+    const ok=sel===q.ans;
+    const fb=done?`<div class="fb"><div class="fb-head"><span class="pill t-${AT[q.ans]}">${AL[q.ans]}</span><span class="verdict ${ok?'ok':'no'}">${ok?'Chính xác!':(sel?'Chưa đúng':'Chưa chọn')+' · đáp án là '+AL[q.ans]}</span></div>
+      <p class="fb-label">Câu hỏi ↔ Bài đọc (đoạn ${q.para})</p>${pairsHTML(q.pairs)}<p class="why">${q.why}</p>${q.trap?`<p class="trap"><b>Bẫy:</b> ${q.trap}</p>`:''}
+      <button type="button" class="link" data-flash="${id}">Xem câu trong bài →</button></div>`:'';
+    return `<div class="q-row"><span class="q-num">${q.id}</span><p class="stmt">${s}</p></div><div class="seg" role="group" aria-label="Câu ${q.id}">${opts}</div>
+      <div class="q-actions">${!done&&!S.hint[id]?'<button type="button" class="btn quiet sm" data-act="hint">Gợi ý</button>':''}<button type="button" class="btn ghost sm" data-act="ul1" ${ulShown?'disabled':''}>Show underlining</button><button type="button" class="btn sm" data-act="ans1" ${done?'disabled':''}>Check answer</button>${uc?`<span class="q-ul">Keywords: em gạch đúng ${uc[0]}/${uc[1]} cụm</span>`:''}</div>${hint}${fb}`};
+  const paint=q=>{const d=$(`.q[data-id="${q.id}"]`,el),id=ID(q);d.innerHTML=inner(q);d.classList.toggle('right',!!S.done[id]&&S.a[id]===q.ans);d.classList.toggle('wrong',!!S.done[id]&&S.a[id]!==q.ans);if(S.done[id])showEv(id,AT[q.ans],'Q'+q.id)};
+  const sum=()=>{const done=items.filter(q=>S.done[ID(q)]),s=done.filter(q=>S.a[ID(q)]===q.ans).length,all=done.length===items.length;
+    $('.result',el).innerHTML=done.length?`<span class="score">${s}/${done.length}</span>`+(all?'Hoàn thành! Thẻ từ vựng Reading 1 đã mở ở Bước 2.':`câu đúng · còn ${items.length-done.length} câu chưa chữa.`):'';
+    if(all)cfg.onDone&&cfg.onDone()};
+  const paintAll=()=>{items.forEach(paint);sum()};
+  const markUL=q=>{const id=ID(q);if(S.done['ul-'+id])return;S.done['ul-'+id]=1;first('ul-'+id,ulCount(q,S.ul[id]||[]))};
+  const check=q=>{const id=ID(q);if(S.done[id])return;markUL(q);S.done[id]=1;first(id,S.a[id]===q.ans)};
+  const find=n=>items.find(q=>q.id===n.closest('.q').dataset.id);
+  const onTok=t=>{const q=find(t),id=ID(q);if(S.done['ul-'+id])return;const i=+t.dataset.i,ul=S.ul[id]=S.ul[id]||[],k=ul.indexOf(i);k<0?ul.push(i):ul.splice(k,1);save();paint(q);const nt=$(`.q[data-id="${q.id}"] .tok[data-i="${i}"]`,el);nt&&nt.focus({preventScroll:true})};
+  el.addEventListener('click',e=>{
+    const t=e.target.closest('.tok');if(t){onTok(t);return}
+    const o=e.target.closest('.opt');if(o&&!o.disabled){const q=find(o);S.a[ID(q)]=o.dataset.v;save();paint(q);return}
+    const a=e.target.closest('[data-act]');if(!a)return;const act=a.dataset.act;
+    if(act==='hint'){const q=find(a);S.hint[ID(q)]=1;save();paint(q)}
+    else if(act==='ul1'){const q=find(a);markUL(q);save();paint(q)}
+    else if(act==='ans1'){const q=find(a);check(q);save();paint(q);sum()}
+    else if(act==='ulall'){items.forEach(markUL);save();paintAll()}
+    else if(act==='all'){items.forEach(check);save();paintAll()}
+    else if(act==='reset'){items.forEach(q=>{const id=ID(q);['a','done','ul','hint'].forEach(k=>delete S[k][id]);delete S.done['ul-'+id]});clearEv(cfg.pre);save();paintAll()}});
+  el.addEventListener('keydown',e=>{const t=e.target.closest('.tok');if(t&&(e.key==='Enter'||e.key===' ')){e.preventDefault();onTok(t)}});
+  paintAll();
+}
+
+/* --- Spelling (Ex 4 bold words) --- */
+function mountSpell(el){
+  const paint=()=>{const done=!!S.done.sp;
+    el.innerHTML=`<ul class="match">${SP.map((d,i)=>{const v=S.a['sp-'+i]||'',ok=d[1].includes(v.trim().toLowerCase());return `<li class="${done?(ok?'right':'wrong'):''}"><span class="mnum">${i+1}</span><label for="sp-${i}">${esc(d[0])}</label>
+      <input type="text" id="sp-${i}" data-k="sp-${i}" value="${esc(v)}" autocomplete="off" autocapitalize="off" spellcheck="false" class="${done?(ok?'ok':'bad'):''}" ${done?'disabled':''}>
+      ${done?`<span class="fix">${ok?'':'Đáp án: <b>'+d[2]+'</b> · '}<button type="button" class="link" data-say="${d[2]}">nghe</button></span>`:''}</li>`}).join('')}</ul>
+     <div class="actions"><button type="button" class="btn" data-act="check" ${done?'disabled':''}>Check spelling</button>${done?'<button type="button" class="btn quiet" data-act="reset">Làm lại</button>':''}
+     <p class="result">${done?`<span class="score">${SP.filter((d,i)=>d[1].includes((S.a['sp-'+i]||'').trim().toLowerCase())).length}/6</span>Chú ý: <b>therapy</b> /ˈθerəpi/ là liệu pháp, <b>therapist</b> /ˈθerəpɪst/ là người trị liệu. Các từ in đậm đã được tô trong bài.`:''}</p></div>`;
+    if(done)showEv('r2bold','yes','')};
+  el.addEventListener('input',e=>{const s=e.target.closest('input[data-k]');if(s){S.a[s.dataset.k]=s.value;save()}});
+  el.addEventListener('click',e=>{const a=e.target.closest('[data-act]');if(!a)return;
+    if(a.dataset.act==='check'){S.done.sp=1;SP.forEach((d,i)=>first('sp-'+i,d[1].includes((S.a['sp-'+i]||'').trim().toLowerCase())));save();paint()}
+    if(a.dataset.act==='reset'){delete S.done.sp;SP.forEach((d,i)=>delete S.a['sp-'+i]);clearEv('r2bold');save();paint()}});
+  paint();
+}
+
+/* --- Summary with box --- */
+function mountSummary(el){
+  const opts=v=>`<option value="">—</option>`+Object.keys(BOX).map(k=>`<option value="${k}" ${v===k?'selected':''}>${k} · ${BOX[k]}</option>`).join('');
+  const g=n=>{const v=S.a['sum-'+n]||'',d=!!S.done['sum-'+n],it=GAPS[n-1];return `<span class="gapn">${n}</span><select id="sum-${n}" data-k="sum-${n}" aria-label="Chỗ trống ${n}" class="${d?(v===it.ans?'ok':'bad'):''}" ${d?'disabled':''}>${opts(v)}</select>`};
+  const paint=()=>{
+    el.innerHTML=`<div class="summary"><h4>Treating a phobia using VRET</h4>
+      Sara Considine's programme of treatments lasted for ${g(1)} months. At first, the sessions did not move very ${g(2)}, as she just ${g(3)} the virtual spider through her headset. It only took two sessions for her to stop being ${g(4)} the spiders in her dreams. After a while, she could hold the virtual spider in her virtual hand, and the next stage involved making physical ${g(5)} with a toy spider.</div>
+     <div class="box">${Object.keys(BOX).map(k=>`<div><b>${k}</b>${BOX[k]}</div>`).join('')}</div>
+     <ul class="gapfb">${GAPS.map(it=>gapItem(it)).join('')}</ul>
+     <div class="actions"><span class="fb-label">Cả bài</span><button type="button" class="btn" data-act="all">Check all answers</button><button type="button" class="btn quiet" data-act="reset">Làm lại</button><p class="result" aria-live="polite"></p></div>`;
+    GAPS.forEach(it=>{if(S.done['sum-'+it.n])showEv('r2g'+it.n,'yes','Q'+it.n)});
+    score()};
+  const gapItem=it=>{const id='sum-'+it.n,d=!!S.done[id],v=S.a[id],ok=v===it.ans;
+    if(!d)return `<li data-n="${it.n}"><div class="fb-head"><span class="q-num">${it.n}</span>${S.hint[id]?`<span class="hint" style="margin:0">${it.hint}</span>`:'<button type="button" class="btn quiet sm" data-act="hint">Gợi ý</button>'}<button type="button" class="btn sm" data-act="one">Check câu ${it.n}</button></div></li>`;
+    return `<li data-n="${it.n}" class="${ok?'right':'wrong'}"><div class="fb-head"><span class="q-num">${it.n}</span><span class="pill t-yes">${it.ans} · ${BOX[it.ans]}</span><span class="verdict ${ok?'ok':'no'}">${ok?'Chính xác!':(v?'Chưa đúng':'Chưa chọn')}</span></div>
+      ${pairsHTML(it.pairs)}<p class="why">${it.why}</p><p class="trap"><b>Bẫy:</b> ${it.trap}</p><button type="button" class="link" data-flash="r2g${it.n}">Xem trong bài →</button></li>`};
+  const score=()=>{const done=GAPS.filter(it=>S.done['sum-'+it.n]),s=done.filter(it=>S.a['sum-'+it.n]===it.ans).length;
+    $('.result',el).innerHTML=done.length?`<span class="score">${s}/${done.length}</span>`+(done.length===GAPS.length?'Hoàn thành! Thẻ từ vựng Reading 2 đã mở ở Bước 4.':`câu đúng · còn ${GAPS.length-done.length} câu.`):'';
+    if(done.length===GAPS.length)unlock(2)};
+  const check=n=>{const id='sum-'+n;if(S.done[id])return;S.done[id]=1;first(id,S.a[id]===GAPS[n-1].ans)};
+  el.addEventListener('change',e=>{const s=e.target.closest('select[data-k]');if(s){S.a[s.dataset.k]=s.value;save()}});
+  el.addEventListener('click',e=>{const a=e.target.closest('[data-act]');if(!a)return;const li=a.closest('li[data-n]'),n=li?+li.dataset.n:0;
+    if(a.dataset.act==='hint'){S.hint['sum-'+n]=1;save();paint()}
+    if(a.dataset.act==='one'){check(n);save();paint();flashEv('r2g'+n)}
+    if(a.dataset.act==='all'){GAPS.forEach(it=>check(it.n));save();paint()}
+    if(a.dataset.act==='reset'){GAPS.forEach(it=>{['a','done','hint'].forEach(k=>delete S[k]['sum-'+it.n])});clearEv('r2g');save();paint()}});
+  paint();
+}
+
+/* --- Vocabulary practice --- */
+function mountVP(el){
+  const item=(r,i)=>{const id='vp-'+i,v=S.a[id]||'',d=!!S.done[id],ok=v===r[2];
+    return `<li data-i="${i}" class="${d?(ok?'right':'wrong'):''}"><div class="sent-row"><span class="q-num">${i+1}</span><p class="sent">${esc(r[0])} <select data-k="${id}" aria-label="Câu ${i+1}" class="${d?(ok?'ok':'bad'):''}" ${d?'disabled':''}><option value="">—</option>${VP_BANK.map(w=>`<option ${v===w?'selected':''}>${w}</option>`).join('')}</select> ${esc(r[1])}</p></div>
+      ${d?`<p class="src-note">${ok?'<b style="color:var(--yes)">Chính xác!</b>':'Đáp án: <b>'+r[2]+'</b>.'} Trong ${r[3]}: <i>“${esc(r[4])}”</i> <button type="button" class="link" data-say="${esc(r[0]+' '+r[2]+' '+r[1])}">nghe câu</button></p>`:`<div><button type="button" class="btn ghost sm" data-act="one">Check</button></div>`}</li>`};
+  const paint=()=>{const done=VP.filter((r,i)=>S.done['vp-'+i]),s=VP.filter((r,i)=>S.done['vp-'+i]&&S.a['vp-'+i]===r[2]).length;
+    el.innerHTML=`<p class="inst" style="margin-bottom:10px"><b>Word bank:</b> ${VP_BANK.join(' · ')}</p><ul class="sents">${VP.map(item).join('')}</ul>
+     <div class="actions" style="margin-top:12px"><button type="button" class="btn" data-act="all">Check all</button><button type="button" class="btn quiet" data-act="reset">Làm lại</button><p class="result">${done.length?`<span class="score">${s}/${done.length}</span>`+(done.length===VP.length?'Đã xong. Đọc to cả 10 câu một lượt nhé.':'câu đúng'):''}</p></div>`};
+  el.addEventListener('change',e=>{const s=e.target.closest('select[data-k]');if(s){S.a[s.dataset.k]=s.value;save()}});
+  el.addEventListener('click',e=>{const a=e.target.closest('[data-act]');if(!a)return;
+    const chk=i=>{const id='vp-'+i;if(S.done[id])return;S.done[id]=1;first(id,S.a[id]===VP[i][2])};
+    if(a.dataset.act==='one'){chk(+a.closest('li').dataset.i)}
+    if(a.dataset.act==='all'){VP.forEach((r,i)=>chk(i))}
+    if(a.dataset.act==='reset'){VP.forEach((r,i)=>{delete S.a['vp-'+i];delete S.done['vp-'+i]})}
+    save();paint()});
+  paint();
+}
+
+/* --- Vocabulary cards --- */
+function cleanSay(t){return t.replace(/\(.*?\)/g,'').replace(/\b(sb|sth)\b/g,'').replace(/\+ ?V\d?(-ing)?/g,'').replace(/[…\/]/g,' ').replace(/\s+/g,' ').trim()}
+function hasWord(w){return S.words.some(x=>x.w.toLowerCase()===w.toLowerCase())}
+function renderVocab(el,list,label){
+  const counts={all:list.length,word:0,phrase:0,expr:0};list.forEach(r=>counts[r[6]]++);
+  const chips=[['all','Tất cả'],['word','Words'],['phrase','Phrases & collocations'],['expr','Expressions']].filter(c=>counts[c[0]]);
+  el.innerHTML=`<div class="dict"><label for="dq-${label}">Tra từ bất kỳ</label><input type="text" id="dq-${label}" data-dict placeholder="vd: nail-biting" autocomplete="off">
+     <a class="btn sm" data-dict-link="english" href="https://dictionary.cambridge.org/dictionary/english/" target="_blank" rel="noopener">Cambridge Anh–Anh</a>
+     <a class="btn ghost sm" data-dict-link="english-vietnamese" href="https://dictionary.cambridge.org/dictionary/english-vietnamese/" target="_blank" rel="noopener">Anh–Việt</a></div>
+   <div class="vfilter" role="group" aria-label="Lọc">${chips.map((c,i)=>`<button type="button" data-f="${c[0]}" aria-pressed="${i===0}">${c[1]} · ${counts[c[0]]}</button>`).join('')}</div>
+   <div class="vgrid">${list.map(r=>`<article class="vcard" data-tag="${r[6]}">
+     <header><h4>${esc(r[0])}</h4><button type="button" class="say" data-say="${esc(cleanSay(r[0]))}" aria-label="Nghe ${esc(r[0])}"></button></header>
+     <div class="vmeta"><span class="pos">${esc(r[1])}</span><span class="ipa">${esc(r[2])}</span></div>
+     <p class="vi">${esc(r[3])}</p><p class="ctx">${esc(r[4])}</p>
+     <p class="ex"><b>Đọc to</b>${esc(r[5])} <button type="button" class="link" data-say="${esc(r[5])}">nghe</button></p>
+     <div class="vlinks"><b>Tra</b><a class="chip" href="${cam(r[7])}" target="_blank" rel="noopener">Cambridge</a><a class="chip" href="${cam(r[7],'english-vietnamese')}" target="_blank" rel="noopener">Anh–Việt</a>
+       <button type="button" class="chip ${hasWord(r[0])?'saved':''}" data-addword="${esc(r[0])}" data-note="${esc(r[3])}">${hasWord(r[0])?'Đã lưu':'+ Sổ từ'}</button></div></article>`).join('')}</div>`;
+  fillSpeakers(el);
+  $('.vfilter',el).addEventListener('click',e=>{const b=e.target.closest('[data-f]');if(!b)return;const f=b.dataset.f;
+    $$('.vfilter button',el).forEach(x=>x.setAttribute('aria-pressed',String(x===b)));$$('.vcard',el).forEach(c=>{c.hidden=!(f==='all'||c.dataset.tag===f)})});
+}
+function unlock(n){S.done['v'+n]=1;const lock=$('#v'+n+'-lock'),body=$('#v'+n+'-body');if(!body.hidden)return;lock.hidden=true;renderVocab(body,n===1?V1:V2,'v'+n);body.hidden=false;body.classList.add('reveal');if(n===1)$('#toolkit1').hidden=false;save()}
+
+/* --- Writing --- */
+function wc(t){const m=t.trim().match(/[A-Za-zÀ-ỹ0-9'’-]+/g);return m?m.length:0}
+function usedTargets(t){return TARGETS.filter(x=>x[1].test(t)).map(x=>x[0])}
+function mountWriting(){
+  const ta=$('#wr'),tg=$('#targets'),cb=$('#readaloud');ta.value=S.writing||'';cb.checked=!!S.readAloud;
+  const upd=()=>{const n=wc(ta.value),u=usedTargets(ta.value);
+    $('#wcount').innerHTML=`<span class="${n>=60?'good':''}">${n} từ</span>${n<60?' · cần 60–100':''}`;
+    $('#wused').innerHTML=`<span class="${u.length>=5?'good':''}">${u.length} từ mới</span>${u.length<5?' · cần ít nhất 5':''}`;
+    tg.innerHTML=TARGETS.map(x=>`<span class="${u.includes(x[0])?'used':''}">${esc(x[0])}</span>`).join('')};
+  ta.addEventListener('input',()=>{S.writing=ta.value;upd();save()});
+  cb.addEventListener('change',()=>{S.readAloud=cb.checked;save()});
+  upd();
+}
+
+/* --- My words --- */
+function mountMyWords(){
+  const list=$('#mw-list');
+  const paint=()=>{list.innerHTML=S.words.length?S.words.map((x,i)=>`<li><span class="w">${esc(x.w)}</span><button type="button" class="say" data-say="${esc(x.w)}" aria-label="Nghe ${esc(x.w)}"></button><span class="n">${esc(x.n||'')}</span>
+      <a class="chip" href="${cam(x.w)}" target="_blank" rel="noopener">Cambridge</a><a class="chip" href="${cam(x.w,'english-vietnamese')}" target="_blank" rel="noopener">Anh–Việt</a><button type="button" class="link" data-del="${i}" style="color:var(--no)">Xoá</button></li>`).join(''):'<li class="empty">Chưa có từ nào. Thêm từ đầu tiên ở ô bên trên hoặc bấm “+ Sổ từ” trên thẻ từ vựng.</li>';
+    fillSpeakers(list)};
+  $('#mw-form').addEventListener('submit',e=>{e.preventDefault();const w=$('#mw-word').value.trim();if(!w)return;if(!hasWord(w))S.words.push({w,n:$('#mw-note').value.trim()});$('#mw-word').value='';$('#mw-note').value='';save();paint()});
+  list.addEventListener('click',e=>{const d=e.target.closest('[data-del]');if(d){S.words.splice(+d.dataset.del,1);save();paint();syncSaved()}});
+  window.__mwPaint=paint;paint();
+}
+function syncSaved(){$$('[data-addword]').forEach(b=>{const s=hasWord(b.dataset.addword);b.classList.toggle('saved',s);b.textContent=s?'Đã lưu':'+ Sổ từ'})}
+
+/* --- Progress & report --- */
+const TASK_IDS=()=>['pv-done','r1ex1',...Q1.map(q=>'r1q'+q.id),'r2gist','sp-done','r2para',...GAPS.map(g=>'sum-'+g.n),...VP.map((r,i)=>'vp-'+i),'writing','readaloud'];
+function taskDone(id){if(id==='pv-done')return!!S.done.pv;if(id==='sp-done')return!!S.done.sp;if(id==='writing')return wc(S.writing||'')>=60;if(id==='readaloud')return!!S.readAloud;return!!S.done[id]}
+function sec(ids){const d=ids.filter(id=>id in S.r),c=d.filter(id=>S.r[id]===true).length;return{d:d.length,c,t:ids.length}}
+function fmt(o){return o.d?`${o.c}/${o.t}`+(o.d<o.t?` (mới làm ${o.d})`:''):null}
+function refresh(){
+  const ids=TASK_IDS(),n=ids.filter(taskDone).length,pct=Math.round(n/ids.length*100);
+  $('#prog-fill').style.width=pct+'%';$('#prog-txt').textContent=pct+'%';
+  const kw=Q1.reduce((a,q)=>{const r=S.r['ul-r1q'+q.id];if(Array.isArray(r)){a[0]+=r[0];a[1]+=r[1];a[2]++}return a},[0,0,0]);
+  const hints=Object.keys(S.hint).length,u=usedTargets(S.writing||''),words=wc(S.writing||'');
+  const rows=[
+    ['Pre-reading vocabulary',fmt(sec(PV.map((r,i)=>'pv-'+i)))],
+    ['Reading 1 · Ex 1 (predict)',('r1ex1' in S.r)?(S.r.r1ex1?'Đúng':'Sai'):null],
+    ['Reading 1 · Keywords (Ex 2)',kw[2]?`${kw[0]}/${kw[1]}`:null],
+    ['Reading 1 · Questions 1–7',fmt(sec(Q1.map(q=>'r1q'+q.id)))],
+    ['Reading 2 · Skim',('r2gist' in S.r)?(S.r.r2gist?'Đúng':'Sai'):null],
+    ['Reading 2 · Ex 4 bold words',fmt(sec(SP.map((d,i)=>'sp-'+i)))],
+    ['Reading 2 · Tìm đoạn',('r2para' in S.r)?(S.r.r2para?'Đúng':'Sai'):null],
+    ['Reading 2 · Questions 1–5',fmt(sec(GAPS.map(g=>'sum-'+g.n)))],
+    ['Vocabulary practice',fmt(sec(VP.map((r,i)=>'vp-'+i)))],
+    ['Gợi ý đã dùng',String(hints)],
+    ['Bài viết',words?`${words} từ · ${u.length} từ mới`:null],
+    ['Đọc to & ghi âm',S.readAloud?'Đã làm':null],
+    ['Sổ từ của em',S.words.length?`${S.words.length} từ`:null],
+  ];
+  $('#rep-name').textContent=S.name||'Chưa nhập tên';
+  $('#rep-rows').innerHTML=rows.map(r=>`<tr><td>${r[0]}</td><td class="${r[1]?'':'todo'}">${r[1]||'chưa làm'}</td></tr>`).join('');
+  let d='';try{d=new Date().toLocaleDateString('vi-VN')}catch(e){}
+  const txt=['BÀI TẬP VỀ NHÀ · Breaking the habit / Fighting fear using VR','Học sinh: '+(S.name||'(chưa nhập tên)'),'Ngày: '+d,'Hoàn thành: '+pct+'%','',
+    ...rows.map(r=>`- ${r[0]}: ${r[1]||'chưa làm'}`),
+    u.length?'- Từ mới đã dùng: '+u.join(', '):'',
+    S.words.length?'- Sổ từ: '+S.words.map(x=>x.w).join(', '):'',
+    '','--- Bài viết ---',(S.writing||'').trim()||'(chưa viết)'].filter((l,i,a)=>l!==''||a[i-1]!=='').join('\n');
+  const rt=$('#rep-text');if(rt.value!==txt)rt.value=txt;
+}
+
+/* ================= GLOBAL HANDLERS ================= */
+document.addEventListener('click',e=>{
+  const s=e.target.closest('[data-say]');if(s){tts.say(s.dataset.say);return}
+  const sp=e.target.closest('[data-saypara]');if(sp){const p=sp.closest('.para');tts.say(p.textContent.replace(/^\d+/,'').trim(),0.88);return}
+  const f=e.target.closest('[data-flash]');if(f){flashEv(f.dataset.flash);return}
+  const pa=e.target.closest('[data-para]');if(pa){const [pid,n]=pa.dataset.para.split('|');flashPara(pid,+n);return}
+  const l=e.target.closest('[data-listen]');if(l){tts.say($$('h3,.sub,.para',$(l.dataset.listen)).map(x=>x.textContent.replace(/^\d+/,'')).join('. '),0.88);return}
+  const st=e.target.closest('[data-saytext]');if(st){tts.say($(st.dataset.saytext).value,0.9);return}
+  if(e.target.closest('[data-stop]')){tts.stop();return}
+  const op=e.target.closest('[data-open]');if(op){openP($(op.dataset.open));return}
+  const cl=e.target.closest('[data-close]');if(cl){closeP(cl.closest('.passage'));return}
+  const aw=e.target.closest('[data-addword]');if(aw){const w=aw.dataset.addword;if(!hasWord(w)){S.words.push({w,n:aw.dataset.note||''});save();window.__mwPaint&&window.__mwPaint()}syncSaved();return}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){const p=$('.passage.open');if(p)closeP(p)}});
+document.addEventListener('input',e=>{const q=e.target.closest('[data-dict]');if(!q)return;const v=q.value.trim(),box=q.closest('.dict');
+  $$('[data-dict-link]',box).forEach(a=>{a.href=v?cam(v,a.dataset.dictLink):`https://dictionary.cambridge.org/dictionary/${a.dataset.dictLink}/`})});
+window.addEventListener('resize',()=>{if(!mobile()){$$('.passage.open').forEach(closeP)}});
+
+/* Name */
+const nm=$('#stu-name');nm.value=S.name||'';nm.addEventListener('input',()=>{S.name=nm.value.trim();save()});
+
+/* Copy report */
+$('#rep-copy').addEventListener('click',()=>{const ta=$('#rep-text'),msg=$('#rep-msg');refresh();
+  const fallback=()=>{ta.focus();ta.select();let ok=false;try{ok=document.execCommand('copy')}catch(e){}msg.textContent=ok?'Đã copy. Dán vào tin nhắn gửi cô.':'Đã chọn sẵn văn bản. Em bấm Ctrl+C (hoặc giữ và chọn Copy).'};
+  try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(ta.value).then(()=>{msg.textContent='Đã copy. Dán vào tin nhắn gửi cô.'},fallback)}else fallback()}catch(e){fallback()}});
+
+/* Wipe */
+$('#wipe').addEventListener('click',()=>{$('#wipe-confirm').hidden=false});
+$('#wipe-no').addEventListener('click',()=>{$('#wipe-confirm').hidden=true});
+$('#wipe-yes').addEventListener('click',()=>{try{localStorage.removeItem(KEY)}catch(e){}location.reload()});
+
+/* ================= BOOT ================= */
+fillSpeakers();
+mountPV($('#pv'));
+mountMC($('#r1ex1'),{id:'r1ex1',letters:['a','b','c','d'],ans:1,ev:'r1ex1',label:'Ex1',
+  opts:['Most people have bad habits that they\'d like to break.','It can be extremely hard to break a bad habit.','People pick up most of their bad habits while they are growing up.','People are not always aware that they have bad habits.'],
+  why:'Câu in nghiêng: <b>“but they can stay with us for life”</b> = thói quen xấu có thể theo ta suốt đời, tức là <b>rất khó bỏ</b>. Các ý a, c, d có thể xuất hiện trong bài, nhưng tiêu đề và câu in nghiêng chỉ nói về ý b.',
+  pairs:[['extremely hard to break','they can stay with us for life','syn']]});
+mountStatements($('#r1q'),Q1,{pre:'r1q',pid:'#p1',onDone:()=>unlock(1)});
+mountMC($('#r2gist'),{id:'r2gist',ans:1,ev:'r2gist',label:'Gist',
+  opts:['A woman who loves spiders and appears on TV.','How virtual reality helped a woman cure her fear of spiders.','Why most people never seek treatment for their fears.'],
+  why:'Câu in nghiêng nói máy tính giúp <b>“one woman … cure her fears”</b>, và phần lớn bài kể lại quá trình trị liệu của Sara. A và C chỉ là chi tiết nhỏ trong bài.',
+  pairs:[['virtual reality helped','computers are not just for entertainment…','syn'],['cure her fear','tried to cure her fears','syn']]});
+mountSpell($('#sp'));
+mountMC($('#para'),{id:'r2para',ans:3,row:true,para:'#p2|4',opts:['Đoạn 1','Đoạn 2','Đoạn 3','Đoạn 4','Đoạn 5'],
+  why:'Đoạn 4 bắt đầu bằng <b>“During twelve one-hour virtual reality sessions over a three-month period”</b> và kể lại từng bước: first → slowly → after two sessions → a few sessions later → the next stage. Cả 5 câu hỏi đều nằm ở đoạn này.',
+  onDone:()=>markPara('#p2',4),onReset:()=>markPara('#p2',0)});
+mountSummary($('#sum'));
+mountVP($('#vp'));
+mountWriting();
+mountMyWords();
+if(S.done.v1)unlock(1);
+if(S.done.v2)unlock(2);
+refresh();
+})();
+</script>
+</body>
+</html>
